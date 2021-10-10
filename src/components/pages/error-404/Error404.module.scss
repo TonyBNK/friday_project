@@ -1,0 +1,34 @@
+.error {
+  margin-top: 50px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 3fr 1fr;
+  background: rgba(199, 146, 234, 0.29);
+
+  .e404,
+  .title,
+  .pic {
+    align-self: center;
+    justify-self: center;
+    margin-top: 30px;
+    font-size: 100px;
+  }
+
+  .e404 {
+    color: red;
+    font-weight: bold;
+    font-family: -apple-system;
+  }
+
+  .title {
+    font-family: "Adobe Devanagari";
+    font-weight: bold;
+    color: deeppink;
+  }
+
+  .pic {
+    color: purple;
+  }
+}
+
+
+
