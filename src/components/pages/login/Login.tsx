@@ -26,6 +26,7 @@ export const Login = () => {
 
     return (
         <div className={c.loginPageContainer}>
+            <h2>Login</h2>
             <Input
                 type="text"
                 name="email"
@@ -39,10 +40,11 @@ export const Login = () => {
                 onChange={onPasswordChange}
             />
             <Checkbox
-                text={'Remember me'}
                 value={rememberMe}
                 onChange={onRememberMeChange}
-            />
+            >
+                Remember me
+            </Checkbox>
             <Button onClick={onButtonClick}>
                 Login
             </Button>

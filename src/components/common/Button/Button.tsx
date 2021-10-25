@@ -9,7 +9,8 @@ type ButtonPropsType = {
 
 export const Button: React.FC<ButtonPropsType> = (
     {
-        onClick
+        onClick,
+        children
     }
 ) => {
 
@@ -19,7 +20,7 @@ export const Button: React.FC<ButtonPropsType> = (
                 type={'primary'}
                 onClick={onClick}
             >
-                Click me!
+                {children}
             </ButtonFromAnt>
         </div>
     )
