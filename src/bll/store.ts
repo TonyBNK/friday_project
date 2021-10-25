@@ -4,8 +4,8 @@ import {profileReducer} from "./reducers/profileReducer";
 import {enterNewPasswordReducer} from "./reducers/enterNewPasswordReducer";
 import {registrationReducer} from "./reducers/registrationReducer";
 import {passwordRecoveryReducer} from "./reducers/passwordRecoveryReducer";
-import thunkMiddleWare from 'redux-thunk';
 import {configureStore} from "@reduxjs/toolkit";
+import thunkMiddleware from "redux-thunk";
 
 
 export const rootReducer = combineReducers({
@@ -18,6 +18,6 @@ export const rootReducer = combineReducers({
 
 export const store = configureStore({
     reducer: rootReducer,
-    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleWare)
+    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
 });
 

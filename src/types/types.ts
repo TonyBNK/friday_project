@@ -1,6 +1,12 @@
 import {rootReducer} from "../bll/store";
 
+
 export type RootStateType = ReturnType<typeof rootReducer>;
+
+export type AppStatusType = {
+    isInitialized: boolean
+}
+
 
 export type LoginRequestType = {
     email: string
@@ -9,6 +15,7 @@ export type LoginRequestType = {
 }
 
 export type LoginResponseType = {
+    data: {
         _id?: string
         email?: string
         name?: string
@@ -20,4 +27,16 @@ export type LoginResponseType = {
         verified?: boolean // подтвердил ли почту
         rememberMe?: boolean
         error?: string;
+    },
+    isLogged: boolean
+}
+
+export type RegisterRequestType = {
+    email: string
+    password: string
+}
+
+export type RegisterResponseType = {
+    isRegistered: boolean
+    error?: string;
 }

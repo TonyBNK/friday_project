@@ -3,6 +3,9 @@ import {Input} from "../../common/Input/Input";
 import {Button} from "../../common/Button/Button";
 import {Redirect} from "react-router-dom";
 import {PATH} from "../Routes";
+import {useDispatch, useSelector} from "react-redux";
+import {RegisterResponseType, RootStateType} from "../../../types/types";
+import {register} from "../../../bll/thunks/thunks";
 
 
 export const Registration = () => {
@@ -10,6 +13,11 @@ export const Registration = () => {
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
     const [redirect, setRedirect] = useState<boolean>(false);
+
+    const dispatch = useDispatch();
+    const {isRegistered, error} = useSelector<RootStateType, RegisterResponseType>(
+        state => state.registration
+    )
 
     const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value);
@@ -21,14 +29,14 @@ export const Registration = () => {
         setConfirmPassword(e.currentTarget.value);
     }
     const onRegisterClick = () => {
-        alert(`${email} ${password} ${confirmPassword}`);
+        dispatch(register({email, password}));
     }
 
     const onCancelClick = () => {
         setRedirect(true);
     }
 
-    if (redirect){
+    if (isRegistered || redirect) {
         return <Redirect to={PATH.LOGIN}/>
     }
 
@@ -48,11 +56,14 @@ export const Registration = () => {
                 onChange={onPasswordChange}
             />
             <Input
-                type="confirmPassword"
+                type="password"
                 name="confirmPassword"
                 value={confirmPassword}
                 onChange={onConfirmPasswordChange}
             />
+            {
+                error
+            }
             <Button onClick={onRegisterClick}>
                 Register
             </Button>

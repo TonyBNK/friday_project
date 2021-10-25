@@ -15,10 +15,10 @@ export const Login = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [rememberMe, setRememberMe] = useState<boolean>(false);
-    
+
     const dispatch = useDispatch();
-    const userId = useSelector<RootStateType, string | undefined>(
-        state => state.login._id
+    const isLogged = useSelector<RootStateType, boolean>(
+        state => state.login.isLogged
     )
 
     const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,8 +33,8 @@ export const Login = () => {
      const onButtonClick = () => {
         dispatch(logIn({email, password, rememberMe}));
     }
-    
-    if (userId){
+
+    if (isLogged){
         return <Redirect to={PATH.PROFILE}/>
     }
 
