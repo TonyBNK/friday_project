@@ -4,12 +4,22 @@ import {Checkbox} from "../../common/Checkbox/Checkbox";
 import {CheckboxChangeEvent} from "antd/es/checkbox";
 import {Button} from "../../common/Button/Button";
 import c from "./Login.module.scss";
+import {useDispatch, useSelector} from "react-redux";
+import {logIn} from "../../../bll/thunks/thunks";
+import {RootStateType} from "../../../types/types";
+import {Redirect} from "react-router-dom";
+import {PATH} from "../Routes";
 
 
 export const Login = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [rememberMe, setRememberMe] = useState<boolean>(false);
+    
+    const dispatch = useDispatch();
+    const userId = useSelector<RootStateType, string | undefined>(
+        state => state.login._id
+    )
 
     const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value);
@@ -21,7 +31,11 @@ export const Login = () => {
         setRememberMe(e.target.checked);
     }
      const onButtonClick = () => {
-        alert(`email: ${email}\npassword: ${password}\nremember me: ${rememberMe}`);
+        dispatch(logIn({email, password, rememberMe}));
+    }
+    
+    if (userId){
+        return <Redirect to={PATH.PROFILE}/>
     }
 
     return (
@@ -40,7 +54,7 @@ export const Login = () => {
                 onChange={onPasswordChange}
             />
             <Checkbox
-                value={rememberMe}
+                checked={rememberMe}
                 onChange={onRememberMeChange}
             >
                 Remember me
