@@ -5,8 +5,8 @@ import './Input.css';
 
 type InputTextPropsType = {
     type: string
-    name: string,
-    value: string,
+    name: string
+    value: string
     onChange: (e: ChangeEvent<HTMLInputElement>) => void,
     error?: string
     onBlur?: () => void
