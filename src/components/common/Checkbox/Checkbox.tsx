@@ -5,21 +5,24 @@ import {CheckboxChangeEvent} from "antd/es/checkbox";
 
 
 type SuperCheckboxPropsType = {
-    onChange?: (checked: boolean) => void
+    text: string
+    value: boolean
+    onChange: (e: CheckboxChangeEvent) => void
 }
 
 export const Checkbox: React.FC<SuperCheckboxPropsType> = (
     {
+        text,
+        value,
         onChange
     }
 ) => {
-    const onChangeCallback = (e: CheckboxChangeEvent) => {
-        onChange && onChange(e.target.checked);
-    }
-
     return (
-        <>
-            <CheckboxFromAnt onChange={onChangeCallback}/>
-        </>
+        <div>
+            {text} <CheckboxFromAnt
+            value={value}
+            onChange={onChange}
+        />
+        </div>
     )
 }

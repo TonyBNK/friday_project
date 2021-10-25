@@ -23,14 +23,14 @@ export const EditableSpan: React.FC<EditableSpanType> = (
 
     return (
         <div>
-            {editMode
-                ? <Input
-                    onBlur={onBlurCallback}
-                />
-                : <span onDoubleClick={onDoubleClickHandler}>
-                        {children}
-                    </span>
-            }
+            {/*{editMode*/}
+            {/*    ? <Input*/}
+            {/*        onBlur={onBlurCallback}*/}
+            {/*    />*/}
+            {/*    : <span onDoubleClick={onDoubleClickHandler}>*/}
+            {/*            {children}*/}
+            {/*        </span>*/}
+            {/*}*/}
         </div>
     )
 }

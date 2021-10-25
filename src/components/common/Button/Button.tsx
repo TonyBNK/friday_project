@@ -1,16 +1,26 @@
 import React from 'react'
 import './Button.css'
-import { Button as ButtonFromAnt } from 'antd';
+import {Button as ButtonFromAnt} from 'antd';
 
 
-type ButtonPropsType = {}
+type ButtonPropsType = {
+    onClick: () => void
+}
 
-export const Button: React.FC<ButtonPropsType> = () => {
+export const Button: React.FC<ButtonPropsType> = (
+    {
+        onClick
+    }
+) => {
+
     return (
-        <>
-            <ButtonFromAnt type={'primary'}>
+        <div>
+            <ButtonFromAnt
+                type={'primary'}
+                onClick={onClick}
+            >
                 Click me!
             </ButtonFromAnt>
-        </>
+        </div>
     )
 }

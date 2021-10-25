@@ -18,17 +18,17 @@ export const Test = () => {
             <h4>
                 Input
             </h4>
-            <Input/>
+            {/*<Input/>*/}
             <h4>
                 Button
             </h4>
-            <Button>
-                Click me!
-            </Button>
+            {/*<Button>*/}
+            {/*    Click me!*/}
+            {/*</Button>*/}
             <h4>
                 Checkbox
             </h4>
-            <Checkbox/>
+            {/*<Checkbox/>*/}
             <h4>
                 Editable Span
             </h4>
