@@ -6,9 +6,11 @@ import {registrationReducer} from "./reducers/registrationReducer";
 import {passwordRecoveryReducer} from "./reducers/passwordRecoveryReducer";
 import {configureStore} from "@reduxjs/toolkit";
 import thunkMiddleware from "redux-thunk";
+import {appReducer} from "./reducers/appReducer";
 
 
 export const rootReducer = combineReducers({
+    app: appReducer,
     login: loginReducer,
     profile: profileReducer,
     registration: registrationReducer,

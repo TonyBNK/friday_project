@@ -3,8 +3,8 @@ import {rootReducer} from "../bll/store";
 
 export type RootStateType = ReturnType<typeof rootReducer>;
 
-export type AppStatusType = {
-    isInitialized: boolean
+export type AppStateType = {
+    isLoading: boolean
 }
 
 // Login types
