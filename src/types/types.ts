@@ -15,7 +15,6 @@ export type LoginRequestType = {
 }
 
 export type LoginResponseType = {
-    data: {
         _id?: string
         email?: string
         name?: string
@@ -27,8 +26,6 @@ export type LoginResponseType = {
         verified?: boolean
         rememberMe?: boolean
         error?: string;
-    },
-    isLogged: boolean
 }
 
 // Registration types

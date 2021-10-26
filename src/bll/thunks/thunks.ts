@@ -11,7 +11,7 @@ export const logIn = (loginData: LoginRequestType) => async (dispatch: Dispatch)
     try {
         dispatch(setLoading({isLoading: true}));
         const response = await api.logIn(loginData);
-        response && dispatch(setLogged({data: response.data, isLogged: true}));
+        response && dispatch(setLogged(response));
     } catch (e: any) { // TODO: delete any type
         const error = e.response
             ? e.response.data.error

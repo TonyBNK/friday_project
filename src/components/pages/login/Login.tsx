@@ -6,7 +6,7 @@ import {Button} from "../../common/Button/Button";
 import c from "./Login.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {logIn} from "../../../bll/thunks/thunks";
-import {RootStateType} from "../../../types/types";
+import {LoginResponseType, RootStateType} from "../../../types/types";
 import {Redirect} from "react-router-dom";
 import {PATH} from "../Routes";
 
@@ -17,8 +17,8 @@ export const Login = () => {
     const [rememberMe, setRememberMe] = useState<boolean>(false);
 
     const dispatch = useDispatch();
-    const isLogged = useSelector<RootStateType, boolean>(
-        state => state.login.isLogged
+    const {_id: userId} = useSelector<RootStateType, LoginResponseType>(
+        state => state.login
     )
 
     const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +34,7 @@ export const Login = () => {
         dispatch(logIn({email, password, rememberMe}));
     }
 
-    if (isLogged){
+    if (userId){
         return <Redirect to={PATH.PROFILE}/>
     }
 

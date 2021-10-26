@@ -3,7 +3,6 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 const initialState: LoginResponseType = {
-    data: {
         _id: '',
         avatar: '',
         name: '',
@@ -15,8 +14,6 @@ const initialState: LoginResponseType = {
         rememberMe: false,
         updated: undefined,
         verified: false
-    },
-    isLogged: false
 };
 
 const loginSlice = createSlice({
@@ -24,8 +21,9 @@ const loginSlice = createSlice({
     initialState: initialState,
     reducers: {
         setLogged(state, action: PayloadAction<LoginResponseType>) {
-            state.data = action.payload.data
-            state.isLogged = action.payload.isLogged
+            state._id = action.payload._id;
+            state.avatar = action.payload.avatar;
+            state.name = action.payload.name;
         }
     }
 })
