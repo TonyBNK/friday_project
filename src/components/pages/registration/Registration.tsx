@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Input} from "../../common/Input/Input";
 import {Button} from "../../common/Button/Button";
-import {Redirect} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 import {PATH} from "../Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {RegisterResponseType, RootStateType} from "../../../types/types";
@@ -12,9 +12,13 @@ import {register} from "../../../bll/thunks/thunks";
 
 
 export const Registration = () => {
-    const [redirect, setRedirect] = useState<boolean>(false);
     const dispatch = useDispatch();
+    const history = useHistory();
+    const [isDisabled, setDisabled] = useState<boolean>(false);
 
+    const isLoading = useSelector<RootStateType, boolean>(
+        state => state.app.isLoading
+    );
     const {
         error,
         isRegistered
@@ -22,9 +26,12 @@ export const Registration = () => {
         state => state.registration
     );
 
-    const isLoading = useSelector<RootStateType, boolean>(
-        state => state.app.isLoading
-    );
+    useEffect(() => {
+        if (!isLoading) {
+            debugger
+            setDisabled(false);
+        }
+    }, [isLoading]);
 
     const formik = useFormik(
         {
@@ -33,10 +40,16 @@ export const Registration = () => {
                 password: ''
             },
             onSubmit: values => {
+                debugger
+                setDisabled(true);
                 dispatch(register({...values}));
             }
         }
     );
+
+    const onCancelClick = () => {
+        history.push(PATH.LOGIN);
+    }
 
     if (isLoading) {
         return <div style={{
@@ -49,12 +62,8 @@ export const Registration = () => {
         </div>
     }
 
-    if ((isRegistered && !error) || redirect) {
+    if ((isRegistered && !error)) {
         return <Redirect to={PATH.LOGIN}/>
-    }
-
-    const onCancelClick = () => {
-        setRedirect(true);
     }
 
     return (
@@ -89,7 +98,7 @@ export const Registration = () => {
                     <Button onClick={onCancelClick}>
                         Cancel
                     </Button>
-                    <Button htmlType='submit'>
+                    <Button htmlType='submit' disabled={isDisabled}>
                         Register
                     </Button>
                 </div>

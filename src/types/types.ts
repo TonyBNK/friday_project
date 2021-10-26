@@ -1,10 +1,14 @@
 import {rootReducer} from "../bll/store";
 
 
+export type Nullable<T> = T | null;
+
 export type RootStateType = ReturnType<typeof rootReducer>;
 
 export type AppStateType = {
     isLoading: boolean
+    error: Nullable<string>
+    isInitialized: boolean
 }
 
 // Login types
