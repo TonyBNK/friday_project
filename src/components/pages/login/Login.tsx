@@ -34,11 +34,11 @@ export const Login = () => {
     const onRememberMeChange = (e: CheckboxChangeEvent) => {
         setRememberMe(e.target.checked);
     }
-     const onButtonClick = () => {
+    const onButtonClick = () => {
         dispatch(logIn({email, password, rememberMe}));
     }
 
-    if (isLoading){
+    if (isLoading) {
         return <div style={{
             position: 'fixed',
             width: '100%',
@@ -49,25 +49,30 @@ export const Login = () => {
         </div>
     }
 
-    if (userId){
+    if (userId) {
         return <Redirect to={PATH.PROFILE}/>
     }
 
     return (
         <div className={c.loginPageContainer}>
             <h2>Login</h2>
-            <Input
-                type="text"
-                name="email"
-                value={email}
-                onChange={onEmailChange}
-            />
-            <Input
-                type="password"
-                name="password"
-                value={password}
-                onChange={onPasswordChange}
-            />
+            <label htmlFor="">
+                Email
+                <Input
+                    type="text"
+                    name="email"
+                    value={email}
+                    onChange={onEmailChange}/>
+            </label>
+            <label htmlFor="password">
+                Password
+                <Input
+                    type="password"
+                    name="password"
+                    value={password}
+                    onChange={onPasswordChange}
+                />
+            </label>
             <Checkbox
                 checked={rememberMe}
                 onChange={onRememberMeChange}
