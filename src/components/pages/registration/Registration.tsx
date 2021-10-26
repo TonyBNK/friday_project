@@ -1,75 +1,81 @@
-import React, {ChangeEvent, useState} from 'react'
+import React from 'react'
 import {Input} from "../../common/Input/Input";
 import {Button} from "../../common/Button/Button";
 import {Redirect} from "react-router-dom";
 import {PATH} from "../Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {RegisterResponseType, RootStateType} from "../../../types/types";
-import {register} from "../../../bll/thunks/thunks";
+import {useFormik} from "formik";
+import c from "./Registration.module.scss";
 
 
 export const Registration = () => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [confirmPassword, setConfirmPassword] = useState<string>('');
-    const [redirect, setRedirect] = useState<boolean>(false);
-
     const dispatch = useDispatch();
-    const {isRegistered, error} = useSelector<RootStateType, RegisterResponseType>(
+
+    const formik = useFormik(
+        {
+            initialValues: {
+                email: '',
+                password: ''
+            },
+            onSubmit: values => {
+                alert(JSON.stringify(values));
+                // dispatch(register({email, password}));
+            },
+            onReset: () => {
+                return <Redirect to={PATH.LOGIN}/>
+            }
+        }
+    );
+
+    const {
+        isRegistered,
+        error
+    } = useSelector<RootStateType, RegisterResponseType>(
         state => state.registration
     )
 
-    const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.currentTarget.value);
-    }
-    const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.currentTarget.value);
-    }
-    const onConfirmPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setConfirmPassword(e.currentTarget.value);
-    }
-    const onRegisterClick = () => {
-        dispatch(register({email, password}));
-    }
-
-    const onCancelClick = () => {
-        setRedirect(true);
-    }
-
-    if (isRegistered || redirect) {
+    if (isRegistered) {
         return <Redirect to={PATH.LOGIN}/>
     }
 
     return (
-        <div>
+        <div className={c.registrationContainer}>
             <h2>Sign Up</h2>
-            <Input
-                type="text"
-                name="email"
-                value={email}
-                onChange={onEmailChange}
-            />
-            <Input
-                type="password"
-                name="password"
-                value={password}
-                onChange={onPasswordChange}
-            />
-            <Input
-                type="password"
-                name="confirmPassword"
-                value={confirmPassword}
-                onChange={onConfirmPasswordChange}
-            />
-            {
-                error
-            }
-            <Button onClick={onRegisterClick}>
-                Register
-            </Button>
-            <Button onClick={onCancelClick}>
-                Cancel
-            </Button>
+            <form>
+                <label>
+                    Email
+                    <Input
+                        id='email'
+                        type="text"
+                        {...formik.getFieldProps('email')}
+                    />
+                </label>
+                <label>
+                    Password
+                    <Input
+                        id='password'
+                        type="password"
+                        {...formik.getFieldProps('password')}
+                    />
+                </label>
+                <label>
+                    Confirm password
+                    <Input
+                        id='confirmPassword'
+                        type="password"
+                        {...formik.getFieldProps('confirmPassword')}
+                    />
+                </label>
+                <div className={c.buttonContainer}>
+                    <Button htmlType='submit'>
+                    Register
+                </Button>
+                    <Button htmlType='reset'>
+                        Cancel
+                    </Button>
+                </div>
+            </form>
         </div>
     )
 }

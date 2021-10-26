@@ -35,19 +35,19 @@ export const PasswordRecovery = () => {
     return (
         <div>
             <h2>Forgot your password?</h2>
-            <Input
-                type="text"
-                name="email"
-                value={email}
-                onChange={onEmailChange}
-            />
-            <p>
-                Enter your email address and we will send you further
-                instructions
-            </p>
-            <Button onClick={onButtonClick}>
-                Send instructions
-            </Button>
+            {/*<Input*/}
+            {/*    type="text"*/}
+            {/*    name="email"*/}
+            {/*    value={email}*/}
+            {/*    onChange={onEmailChange}*/}
+            {/*/>*/}
+            {/*<p>*/}
+            {/*    Enter your email address and we will send you further*/}
+            {/*    instructions*/}
+            {/*</p>*/}
+            {/*<Button onClick={onButtonClick}>*/}
+            {/*    Send instructions*/}
+            {/*</Button>*/}
         </div>
     )
 }

@@ -41,27 +41,27 @@ export const Login = () => {
     return (
         <div className={c.loginPageContainer}>
             <h2>Login</h2>
-            <Input
-                type="text"
-                name="email"
-                value={email}
-                onChange={onEmailChange}
-            />
-            <Input
-                type="password"
-                name="password"
-                value={password}
-                onChange={onPasswordChange}
-            />
-            <Checkbox
-                checked={rememberMe}
-                onChange={onRememberMeChange}
-            >
-                Remember me
-            </Checkbox>
-            <Button onClick={onButtonClick}>
-                Login
-            </Button>
+            {/*<Input*/}
+            {/*    type="text"*/}
+            {/*    name="email"*/}
+            {/*    value={email}*/}
+            {/*    onChange={onEmailChange}*/}
+            {/*/>*/}
+            {/*<Input*/}
+            {/*    type="password"*/}
+            {/*    name="password"*/}
+            {/*    value={password}*/}
+            {/*    onChange={onPasswordChange}*/}
+            {/*/>*/}
+            {/*<Checkbox*/}
+            {/*    checked={rememberMe}*/}
+            {/*    onChange={onRememberMeChange}*/}
+            {/*>*/}
+            {/*    Remember me*/}
+            {/*</Checkbox>*/}
+            {/*<Button onClick={onButtonClick}>*/}
+            {/*    Login*/}
+            {/*</Button>*/}
         </div>
     )
 }
