@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Input} from "../../common/Input/Input";
 import {Checkbox} from "../../common/Checkbox/Checkbox";
 import {Button} from "../../common/Button/Button";
@@ -27,6 +27,13 @@ export const Login = () => {
     const isLoading = useSelector<RootStateType, boolean>(
         state => state.app.isLoading
     )
+
+    useEffect(() => {
+        if (!isLoading) {
+            setButtonDisabled(false);
+        }
+    }, [isLoading]);
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -119,7 +126,7 @@ export const Login = () => {
                 >
                     Remember me
                 </Checkbox>
-                <Button htmlType={'submit'} isDisabled={isButtonDisabled}>
+                <Button htmlType={'submit'} disabled={isButtonDisabled}>
                     Login
                 </Button>
             </form>

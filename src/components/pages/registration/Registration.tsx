@@ -18,7 +18,7 @@ import {register} from "../../../bll/thunks/thunks";
 export const Registration = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [isDisabled, setDisabled] = useState<boolean>(false);
+    const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
 
     const isLoading = useSelector<RootStateType, boolean>(
         state => state.app.isLoading
@@ -32,7 +32,7 @@ export const Registration = () => {
 
     useEffect(() => {
         if (!isLoading) {
-            setDisabled(false);
+            setButtonDisabled(false);
         }
     }, [isLoading]);
 
@@ -66,7 +66,7 @@ export const Registration = () => {
                 return errors;
             },
             onSubmit: values => {
-                setDisabled(true);
+                setButtonDisabled(true);
                 dispatch(register({...values}));
             }
         }
@@ -155,7 +155,7 @@ export const Registration = () => {
                     <Button onClick={onCancelClick}>
                         Cancel
                     </Button>
-                    <Button htmlType='submit' disabled={isDisabled}>
+                    <Button htmlType='submit' disabled={isButtonDisabled}>
                         Register
                     </Button>
                 </div>
