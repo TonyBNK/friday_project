@@ -28,6 +28,12 @@ export type LoginResponseType = {
         error?: string;
 }
 
+export type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
+}
+
 // Registration types
 export type RegisterRequestType = {
     email: string
