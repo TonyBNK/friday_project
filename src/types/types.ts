@@ -46,6 +46,12 @@ export type RegisterResponseType = {
     isRegistered: boolean
 }
 
+export type RegisterErrorType = {
+    email?: string
+    password?: string
+    confirmPassword?: string
+}
+
 // Password recovery types
 export type PasswordRecoveryRequestType = {
     email: string

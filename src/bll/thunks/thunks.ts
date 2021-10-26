@@ -25,7 +25,6 @@ export const logIn = (loginData: LoginRequestType) => async (dispatch: Dispatch)
 
 export const register = (registrationData: RegisterRequestType) => async (dispatch: Dispatch) => {
     try {
-        debugger
         dispatch(setLoading({isLoading: true}));
         const response = await api.register(registrationData);
         response && dispatch(setRegisterError({

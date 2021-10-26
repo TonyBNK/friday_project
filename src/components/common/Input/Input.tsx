@@ -6,6 +6,10 @@ import './Input.css';
 type InputTextPropsType = {
     id: string
     type: string
+    style?: {
+        border: string
+        outlined: boolean
+    }
     name: string
     value: string
     onChange: (e: ChangeEvent<HTMLInputElement>) => void,
@@ -17,6 +21,7 @@ export const Input: React.FC<InputTextPropsType> = (
     {
         id,
         type,
+        style,
         ...formik
     }
 ) => {
@@ -26,6 +31,7 @@ export const Input: React.FC<InputTextPropsType> = (
             <InputFromAnt
                 id={id}
                 type={type}
+                style={style}
                 {...formik}
             />
         </div>
