@@ -45,7 +45,7 @@ export const PasswordRecovery = () => {
                 Enter your email address and we will send you further
                 instructions
             </p>
-            <Button onClick={onButtonClick}>
+            <Button>
                 Send instructions
             </Button>
         </div>

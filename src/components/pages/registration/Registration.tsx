@@ -64,10 +64,10 @@ export const Registration = () => {
             {
                 error
             }
-            <Button onClick={onRegisterClick}>
+            <Button>
                 Register
             </Button>
-            <Button onClick={onCancelClick}>
+            <Button>
                 Cancel
             </Button>
         </div>
