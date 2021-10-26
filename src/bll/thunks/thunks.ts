@@ -27,17 +27,10 @@ export const register = (registrationData: RegisterRequestType) => async (dispat
     try {
         dispatch(setLoading({isLoading: true}));
         const response = await api.register(registrationData);
-        if (response) {
-            !response.error
-                ? dispatch(setRegisterError({
-                    isRegistered: true,
-                    error: response.error
-                }))
-                : dispatch(setRegisterError({
-                    isRegistered: false,
-                    error: response.error
-                }));
-        }
+        response && dispatch(setRegisterError({
+            isRegistered: true,
+            error: response.error
+        }));
     } catch (e: any) { // TODO: delete any type
         const error = e.response
             ? e.response.data.error

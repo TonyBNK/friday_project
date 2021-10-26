@@ -38,8 +38,8 @@ export type RegisterRequestType = {
 }
 
 export type RegisterResponseType = {
+    error?: string
     isRegistered: boolean
-    error?: string;
 }
 
 // Password recovery types

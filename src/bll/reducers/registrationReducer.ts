@@ -3,8 +3,8 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
 const initialState: RegisterResponseType = {
-    isRegistered: false,
-    error: ''
+    error: '',
+    isRegistered: false
 }
 
 const registrationSlice = createSlice({
@@ -13,6 +13,7 @@ const registrationSlice = createSlice({
     reducers: {
         setRegisterError(state, action: PayloadAction<RegisterResponseType>){
             state.error = action.payload.error;
+            state.isRegistered = action.payload.isRegistered;
         }
     }
 });

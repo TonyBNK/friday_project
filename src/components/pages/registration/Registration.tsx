@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Input} from "../../common/Input/Input";
 import {Button} from "../../common/Button/Button";
 import {Redirect} from "react-router-dom";
@@ -7,10 +7,24 @@ import {useDispatch, useSelector} from "react-redux";
 import {RegisterResponseType, RootStateType} from "../../../types/types";
 import {useFormik} from "formik";
 import c from "./Registration.module.scss";
+import {Spin} from "antd";
+import {register} from "../../../bll/thunks/thunks";
 
 
 export const Registration = () => {
+    const [redirect, setRedirect] = useState<boolean>(false);
     const dispatch = useDispatch();
+
+    const {
+        error,
+        isRegistered
+    } = useSelector<RootStateType, RegisterResponseType>(
+        state => state.registration
+    );
+
+    const isLoading = useSelector<RootStateType, boolean>(
+        state => state.app.isLoading
+    );
 
     const formik = useFormik(
         {
@@ -19,30 +33,34 @@ export const Registration = () => {
                 password: ''
             },
             onSubmit: values => {
-                alert(JSON.stringify(values));
-                // dispatch(register({email, password}));
-            },
-            onReset: () => {
-                return <Redirect to={PATH.LOGIN}/>
+                dispatch(register({...values}));
             }
         }
     );
 
-    const {
-        isRegistered,
-        error
-    } = useSelector<RootStateType, RegisterResponseType>(
-        state => state.registration
-    )
+    if (isLoading) {
+        return <div style={{
+            position: 'fixed',
+            width: '100%',
+            top: '30%',
+            textAlign: 'center'
+        }}>
+            <Spin size={'large'}/>
+        </div>
+    }
 
-    if (isRegistered) {
+    if ((isRegistered && !error) || redirect) {
         return <Redirect to={PATH.LOGIN}/>
+    }
+
+    const onCancelClick = () => {
+        setRedirect(true);
     }
 
     return (
         <div className={c.registrationContainer}>
             <h2>Sign Up</h2>
-            <form>
+            <form onSubmit={formik.handleSubmit}>
                 <label>
                     Email
                     <Input
@@ -68,11 +86,11 @@ export const Registration = () => {
                     />
                 </label>
                 <div className={c.buttonContainer}>
-                    <Button htmlType='submit'>
-                    Register
-                </Button>
-                    <Button htmlType='reset'>
+                    <Button onClick={onCancelClick}>
                         Cancel
+                    </Button>
+                    <Button htmlType='submit'>
+                        Register
                     </Button>
                 </div>
             </form>
