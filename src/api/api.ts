@@ -10,7 +10,7 @@ import {
 
 
 const axiosInst = axios.create({
-    baseURL: "http://localhost:7542/2.0",
+    // baseURL: "http://localhost:7542/2.0",
     withCredentials: true
 });
 
@@ -19,7 +19,7 @@ export const api = {
         try {
             const response = await axiosInst
                 .post<LoginRequestType, AxiosResponse<LoginResponseType>>(
-                    '/auth/login', {
+                    'http://localhost:7542/2.0/auth/login', {
                         ...loginData
                     }
                 );
@@ -31,7 +31,7 @@ export const api = {
     register: async (registerData: RegisterRequestType) => {
         try {
             const response = await axiosInst
-                .post<RegisterRequestType, AxiosResponse<RegisterResponseType>>('/auth/register', {
+                .post<RegisterRequestType, AxiosResponse<RegisterResponseType>>('http://localhost:7542/2.0/auth/register', {
                     ...registerData
                 });
             return response.data;
@@ -42,11 +42,11 @@ export const api = {
     recoverPassword: async (email: string) => {
         try {
             const response = await axiosInst
-                .post<PasswordRecoveryRequestType, AxiosResponse<PasswordRecoveryResponseType>>('/auth/forgot', {
+                .post<PasswordRecoveryRequestType, AxiosResponse<PasswordRecoveryResponseType>>('https://neko-back.herokuapp.com/2.0/auth/forgot', {
                     email,
                     from: 'test-front-admin <borisenk-anton@yandex.ru>',
                     message: `<div style="background-color: lime; padding: 15px">
-password recovery link: <a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
+password recovery link: <a href='http://localhost:3000/friday_project#/password_recovery/$token$'>link</a>
 </div>`
                 });
             return response.data;
