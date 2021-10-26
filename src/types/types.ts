@@ -7,7 +7,7 @@ export type AppStatusType = {
     isInitialized: boolean
 }
 
-
+// Login types
 export type LoginRequestType = {
     email: string
     password: string
@@ -20,17 +20,18 @@ export type LoginResponseType = {
         email?: string
         name?: string
         avatar?: string
-        publicCardPacksCount?: number // количество колод
+        publicCardPacksCount?: number
         created?: Date
         updated?: Date
         isAdmin?: boolean
-        verified?: boolean // подтвердил ли почту
+        verified?: boolean
         rememberMe?: boolean
         error?: string;
     },
     isLogged: boolean
 }
 
+// Registration types
 export type RegisterRequestType = {
     email: string
     password: string
@@ -39,4 +40,16 @@ export type RegisterRequestType = {
 export type RegisterResponseType = {
     isRegistered: boolean
     error?: string;
+}
+
+// Password recovery types
+export type PasswordRecoveryRequestType = {
+    email: string
+    from: string
+    message: string
+}
+
+export type PasswordRecoveryResponseType = {
+    info: string
+    error: string
 }

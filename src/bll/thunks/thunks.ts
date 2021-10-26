@@ -3,6 +3,7 @@ import {setLogged} from "../reducers/loginReducer";
 import {api} from "../../api/api";
 import {LoginRequestType, RegisterRequestType} from "../../types/types";
 import {setRegisterError} from "../reducers/registrationReducer";
+import {setPasRecover} from "../reducers/passwordRecoveryReducer";
 
 
 export const logIn = (loginData: LoginRequestType) => async (dispatch: Dispatch) => {
@@ -32,6 +33,19 @@ export const register = (registrationData: RegisterRequestType) => async (dispat
                     error: response.error
                 }));
         }
+    } catch (e: any) { // TODO: delete any type
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        console.log(error);
+        console.log('Error: ', {...e});
+    }
+}
+
+export const recoverPassword = (email: string) => async (dispatch: Dispatch) => {
+    try {
+        const response = await api.recoverPassword(email);
+        response && dispatch(setPasRecover({...response}));
     } catch (e: any) { // TODO: delete any type
         const error = e.response
             ? e.response.data.error

@@ -2,7 +2,10 @@ import axios, {AxiosResponse} from "axios";
 import {
     LoginRequestType,
     LoginResponseType,
-    RegisterRequestType, RegisterResponseType
+    PasswordRecoveryRequestType,
+    PasswordRecoveryResponseType,
+    RegisterRequestType,
+    RegisterResponseType
 } from "../types/types";
 
 
@@ -30,6 +33,21 @@ export const api = {
             const response = await axiosInst
                 .post<RegisterRequestType, AxiosResponse<RegisterResponseType>>('/auth/register', {
                     ...registerData
+                });
+            return response.data;
+        } catch (e) {
+            console.log(e);
+        }
+    },
+    recoverPassword: async (email: string) => {
+        try {
+            const response = await axiosInst
+                .post<PasswordRecoveryRequestType, AxiosResponse<PasswordRecoveryResponseType>>('/auth/forgot', {
+                    email,
+                    from: 'test-front-admin <borisenk-anton@yandex.ru>',
+                    message: `<div style="background-color: lime; padding: 15px">
+password recovery link: <a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
+</div>`
                 });
             return response.data;
         } catch (e) {
