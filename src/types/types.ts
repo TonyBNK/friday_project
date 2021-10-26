@@ -1,10 +1,14 @@
 import {rootReducer} from "../bll/store";
 
 
+export type Nullable<T> = T | null;
+
 export type RootStateType = ReturnType<typeof rootReducer>;
 
 export type AppStateType = {
     isLoading: boolean
+    error: Nullable<string>
+    isInitialized: boolean
 }
 
 // Login types
@@ -41,8 +45,14 @@ export type RegisterRequestType = {
 }
 
 export type RegisterResponseType = {
+    error?: string
     isRegistered: boolean
-    error?: string;
+}
+
+export type RegisterErrorType = {
+    email?: string
+    password?: string
+    confirmPassword?: string
 }
 
 // Password recovery types

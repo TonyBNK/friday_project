@@ -6,13 +6,14 @@ import './Input.css';
 type InputTextPropsType = {
     id: string
     type: string
-    name: string
     style?: {
         border: string
         outlined: boolean
     }
+    name: string
     value: string
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void,
+    error?: string
     onBlur?: (e: FocusEvent<HTMLInputElement>) => void
 }
 

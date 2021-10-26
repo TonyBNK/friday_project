@@ -1,13 +1,13 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {useState} from 'react'
 import {Input} from "../../common/Input/Input";
 import {Checkbox} from "../../common/Checkbox/Checkbox";
-import {CheckboxChangeEvent} from "antd/es/checkbox";
 import {Button} from "../../common/Button/Button";
 import c from "./Login.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {logIn} from "../../../bll/thunks/thunks";
 import {
-    FormikErrorType, LoginRequestType,
+    FormikErrorType,
+    LoginRequestType,
     LoginResponseType,
     RootStateType
 } from "../../../types/types";

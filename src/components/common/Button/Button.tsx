@@ -4,14 +4,16 @@ import {Button as ButtonFromAnt} from 'antd';
 
 
 type ButtonPropsType = {
+    disabled?: boolean
+    onClick?: () => void
     htmlType?: "button" | "submit" | "reset"
-    isDisabled?: boolean
 }
 
 export const Button: React.FC<ButtonPropsType> = (
     {
+        onClick,
+        disabled,
         htmlType,
-        isDisabled,
         children
     }
 ) => {
@@ -19,9 +21,10 @@ export const Button: React.FC<ButtonPropsType> = (
     return (
         <div>
             <ButtonFromAnt
-                type={'primary'}
                 htmlType={htmlType}
-                disabled={isDisabled}
+                type={'primary'}
+                onClick={onClick}
+                disabled={disabled}
             >
                 {children}
             </ButtonFromAnt>
