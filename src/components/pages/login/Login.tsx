@@ -6,7 +6,11 @@ import {Button} from "../../common/Button/Button";
 import c from "./Login.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {logIn} from "../../../bll/thunks/thunks";
-import {LoginResponseType, RootStateType} from "../../../types/types";
+import {
+    AppStateType,
+    LoginResponseType,
+    RootStateType
+} from "../../../types/types";
 import {Redirect} from "react-router-dom";
 import {PATH} from "../Routes";
 
@@ -20,6 +24,9 @@ export const Login = () => {
     const {_id: userId} = useSelector<RootStateType, LoginResponseType>(
         state => state.login
     )
+    const isLoading = useSelector<RootStateType, boolean>(
+        state => state.app.isLoading
+    )
 
     const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value);
@@ -32,6 +39,10 @@ export const Login = () => {
     }
      const onButtonClick = () => {
         dispatch(logIn({email, password, rememberMe}));
+    }
+
+    if (isLoading){
+        return
     }
 
     if (userId){
