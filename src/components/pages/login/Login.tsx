@@ -58,23 +58,26 @@ export const Login = () => {
                 <label>
                     Email
                     <Input
+                        id='email'
                         type="text"
-                        name="email"
-                        value={formik.values.email}
-                        onChange={formik.handleChange}/>
+                        {...formik.getFieldProps('email')}/>
                 </label>
+                {
+                    formik.touched.email && formik.errors.email
+                        ? (<div>{formik.errors.email}</div>)
+                        : null
+                }
                 <label>
                     Password
                     <Input
+                        id={'password'}
                         type="password"
-                        name="password"
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
+                        {...formik.getFieldProps('password')}
                     />
                 </label>
                 <Checkbox
-                    checked={formik.values.rememberMe}
-                    onChange={formik.handleChange}
+                    id={'rememberMe'}
+                    {...formik.getFieldProps('')}
                 >
                     Remember me
                 </Checkbox>

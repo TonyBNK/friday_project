@@ -43,24 +43,24 @@ export const Registration = () => {
     return (
         <div>
             <h2>Sign Up</h2>
-            <Input
-                type="text"
-                name="email"
-                value={email}
-                onChange={onEmailChange}
-            />
-            <Input
-                type="password"
-                name="password"
-                value={password}
-                onChange={onPasswordChange}
-            />
-            <Input
-                type="password"
-                name="confirmPassword"
-                value={confirmPassword}
-                onChange={onConfirmPasswordChange}
-            />
+            {/*<Input*/}
+            {/*    type="text"*/}
+            {/*    name="email"*/}
+            {/*    value={email}*/}
+            {/*    onChange={onEmailChange}*/}
+            {/*/>*/}
+            {/*<Input*/}
+            {/*    type="password"*/}
+            {/*    name="password"*/}
+            {/*    value={password}*/}
+            {/*    onChange={onPasswordChange}*/}
+            {/*/>*/}
+            {/*<Input*/}
+            {/*    type="password"*/}
+            {/*    name="confirmPassword"*/}
+            {/*    value={confirmPassword}*/}
+            {/*    onChange={onConfirmPasswordChange}*/}
+            {/*/>*/}
             {
                 error
             }

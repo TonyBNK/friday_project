@@ -5,22 +5,23 @@ import {CheckboxChangeEvent} from "antd/es/checkbox";
 
 
 type SuperCheckboxPropsType = {
-    checked: boolean
+    id?: string
+    checked?: boolean
     onChange: (e: CheckboxChangeEvent) => void
 }
 
 export const Checkbox: React.FC<SuperCheckboxPropsType> = (
     {
+        id,
         children,
-        checked,
-        onChange
+        ...formik
     }
 ) => {
     return (
         <div>
             {children} <CheckboxFromAnt
-            checked={checked}
-            onChange={onChange}
+            id={id}
+            {...formik}
         />
         </div>
     )

@@ -1,40 +1,32 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, FocusEvent} from 'react';
 import {Input as InputFromAnt} from 'antd';
 import './Input.css';
 
 
 type InputTextPropsType = {
+    id: string
     type: string
     name: string
     value: string
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void,
-    error?: string
-    onBlur?: () => void
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
+    onBlur?: (e: FocusEvent<HTMLInputElement>) => void
 }
 
 export const Input: React.FC<InputTextPropsType> = (
     {
+        id,
         type,
-        name,
-        value,
-        onChange,
-        error,
-        onBlur
+        ...formik
     }
 ) => {
 
     return (
         <div>
             <InputFromAnt
+                id={id}
                 type={type}
-                name={name}
-                value={value}
-                onChange={onChange}
-                style={{width: 300}}
-                onBlur={onBlur}
-                autoFocus
+                {...formik}
             />
-            {error && <span>{error}</span>}
         </div>
     )
 }
