@@ -16,6 +16,7 @@ export const Login = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [rememberMe, setRememberMe] = useState<boolean>(false);
+    const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
 
     const dispatch = useDispatch();
     const {_id: userId} = useSelector<RootStateType, LoginResponseType>(
@@ -35,6 +36,8 @@ export const Login = () => {
         setRememberMe(e.target.checked);
     }
     const onButtonClick = () => {
+        debugger
+        setButtonDisabled(true);
         dispatch(logIn({email, password, rememberMe}));
     }
 
@@ -79,7 +82,10 @@ export const Login = () => {
             >
                 Remember me
             </Checkbox>
-            <Button onClick={onButtonClick}>
+            <Button
+                onClick={onButtonClick}
+                isDisabled={isButtonDisabled}
+            >
                 Login
             </Button>
         </div>
