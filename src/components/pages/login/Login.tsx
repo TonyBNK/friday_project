@@ -51,9 +51,8 @@ export const Login = () => {
             return errors;
         },
         onSubmit: values => {
-            alert(JSON.stringify(values));
-            // setButtonDisabled(true);
-            // dispatch(logIn({email, password, rememberMe}));
+            setButtonDisabled(true);
+            dispatch(logIn({...values}));
         },
     });
 
