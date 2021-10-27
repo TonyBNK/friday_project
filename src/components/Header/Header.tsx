@@ -4,6 +4,7 @@ import {PATH} from "../pages/Routes";
 import {NavLink} from "react-router-dom";
 import {Button} from "../common/Button/Button";
 import {useDispatch} from "react-redux";
+import {logOut} from "../../bll/thunks/thunks";
 
 
 type HeaderPropsType = {
@@ -18,7 +19,7 @@ export const Header: React.FC<HeaderPropsType> = (
     const dispatch = useDispatch();
 
     const onLogOutClickHandler = () => {
-        //dispatch(logOut());
+        dispatch(logOut());
     }
 
     return (

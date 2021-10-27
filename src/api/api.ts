@@ -5,7 +5,7 @@ import {
     PasswordRecoveryRequestType,
     PasswordRecoveryResponseType,
     RegisterRequestType,
-    RegisterResponseType
+    RegisterResponseType, LogoutResponseType
 } from "../types/types";
 
 
@@ -26,6 +26,13 @@ export const api = {
                 'http://localhost:7542/2.0/auth/login', {
                     ...loginData
                 }
+            );
+        return response.data;
+    },
+    logOut: async () => {
+        const response = await axiosInst
+            .delete<LoginRequestType, AxiosResponse<LogoutResponseType>>(
+                'http://localhost:7542/2.0/auth/me'
             );
         return response.data;
     },

@@ -11,7 +11,7 @@ export type AppStateType = {
     isInitialized: boolean
 }
 
-// Login types
+// Log In types
 export type LoginRequestType = {
     email: string
     password: string
@@ -26,6 +26,12 @@ export type LoginFormikErrorType = {
     email?: string
     password?: string
     rememberMe?: boolean
+}
+
+// Log Out types
+export type LogoutResponseType = {
+    info: string
+    error: string
 }
 
 // Registration types

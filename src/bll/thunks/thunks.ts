@@ -12,9 +12,24 @@ export const logIn = (loginData: LoginRequestType) => async (dispatch: Dispatch)
     try {
         dispatch(setLoading({isLoading: true}));
         const response = await api.logIn(loginData);
-        debugger;
         dispatch(setProfileData(response));
         dispatch(setLogged({isLogged: true}));
+    } catch (e: any) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        console.log(error);
+        console.log('Error: ', {...e});
+    } finally {
+        dispatch(setLoading({isLoading: false}));
+    }
+}
+
+export const logOut = () => async (dispatch: Dispatch) => {
+    try {
+        dispatch(setLoading({isLoading: true}));
+        await api.logOut();
+        dispatch(setLogged({isLogged: false}));
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error
