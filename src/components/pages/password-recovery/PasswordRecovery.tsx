@@ -4,7 +4,7 @@ import {Button} from "../../common/Button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {
     PasswordRecoveryFormikErrorType,
-    PasswordRecoveryResponseType, RegisterFormikErrorType,
+    PasswordRecoveryResponseType,
     RootStateType
 } from "../../../types/types";
 import {Redirect} from "react-router-dom";
