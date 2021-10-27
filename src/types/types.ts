@@ -66,3 +66,7 @@ export type PasswordRecoveryResponseType = {
     info: string
     error: string
 }
+
+export type PasswordRecoveryFormikErrorType = {
+    email?: string
+}
