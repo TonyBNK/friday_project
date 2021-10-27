@@ -32,7 +32,7 @@ export type LoginResponseType = {
         error?: string;
 }
 
-export type FormikErrorType = {
+export type LoginFormikErrorType = {
     email?: string
     password?: string
     rememberMe?: boolean
@@ -49,10 +49,18 @@ export type RegisterResponseType = {
     isRegistered: boolean
 }
 
-export type RegisterErrorType = {
+export type RegisterFormikErrorType = {
     email?: string
     password?: string
     confirmPassword?: string
+}
+
+export type RegisterResponseErrorType = {
+    data: {
+        error: string
+        email: string
+        in: string
+    }
 }
 
 // Password recovery types

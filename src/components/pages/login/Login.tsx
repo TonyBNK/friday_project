@@ -6,7 +6,7 @@ import c from "./Login.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {logIn} from "../../../bll/thunks/thunks";
 import {
-    FormikErrorType,
+    LoginFormikErrorType,
     LoginRequestType,
     LoginResponseType,
     RootStateType
@@ -41,7 +41,7 @@ export const Login = () => {
             rememberMe: false
         },
         validate: (values: LoginRequestType) => {
-            const errors: FormikErrorType = {};
+            const errors: LoginFormikErrorType = {};
 
             if (!values.email) {
                 errors.email = 'Required';

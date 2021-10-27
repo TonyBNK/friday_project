@@ -5,7 +5,7 @@ import {Redirect, useHistory} from "react-router-dom";
 import {PATH} from "../Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    RegisterErrorType,
+    RegisterFormikErrorType,
     RegisterResponseType,
     RootStateType
 } from "../../../types/types";
@@ -44,7 +44,7 @@ export const Registration = () => {
                 confirmPassword: ''
             },
             validate: (values) => {
-                const errors: RegisterErrorType = {};
+                const errors: RegisterFormikErrorType = {};
                 if (!values.email) {
                     errors.email = 'Required';
                 } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {

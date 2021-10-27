@@ -25,42 +25,30 @@ export const api = {
         }
     },
     logIn: async (loginData: LoginRequestType) => {
-        try {
-            const response = await axiosInst
-                .post<LoginRequestType, AxiosResponse<LoginResponseType>>(
-                    'http://localhost:7542/2.0/auth/login', {
-                        ...loginData
-                    }
-                );
-            return response.data;
-        } catch (e) {
-            console.log(e);
-        }
+        const response = await axiosInst
+            .post<LoginRequestType, AxiosResponse<LoginResponseType>>(
+                'http://localhost:7542/2.0/auth/login', {
+                    ...loginData
+                }
+            );
+        return response.data;
     },
     register: async (registerData: RegisterRequestType) => {
-        try {
-            const response = await axiosInst
-                .post<RegisterRequestType, AxiosResponse<RegisterResponseType>>('http://localhost:7542/2.0/auth/register', {
-                    ...registerData
-                });
-            return response.data;
-        } catch (e) {
-            console.log(e);
-        }
+        const response = await axiosInst
+            .post<RegisterRequestType, AxiosResponse<RegisterResponseType>>('http://localhost:7542/2.0/auth/register', {
+                ...registerData
+            });
+        return response.data;
     },
     recoverPassword: async (email: string) => {
-        try {
-            const response = await axiosInst
-                .post<PasswordRecoveryRequestType, AxiosResponse<PasswordRecoveryResponseType>>('https://neko-back.herokuapp.com/2.0/auth/forgot', {
-                    email,
-                    from: 'test-front-admin <borisenk-anton@yandex.ru>',
-                    message: `<div style="background-color: lime; padding: 15px">
+        const response = await axiosInst
+            .post<PasswordRecoveryRequestType, AxiosResponse<PasswordRecoveryResponseType>>('https://neko-back.herokuapp.com/2.0/auth/forgot', {
+                email,
+                from: 'test-front-admin <borisenk-anton@yandex.ru>',
+                message: `<div style="background-color: lime; padding: 15px">
 password recovery link: <a href='http://localhost:3000/friday_project#/password_recovery/$token$'>link</a>
 </div>`
-                });
-            return response.data;
-        } catch (e) {
-            console.log(e);
-        }
+            });
+        return response.data;
     }
 }

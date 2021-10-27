@@ -12,7 +12,7 @@ export const logIn = (loginData: LoginRequestType) => async (dispatch: Dispatch)
         dispatch(setLoading({isLoading: true}));
         const response = await api.logIn(loginData);
         response && dispatch(setLogged(response));
-    } catch (e: any) { // TODO: delete any type
+    } catch (e: any) {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
@@ -31,7 +31,7 @@ export const register = (registrationData: RegisterRequestType) => async (dispat
             isRegistered: true,
             error: response.error
         }));
-    } catch (e: any) { // TODO: delete any type
+    } catch (e: any) {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
@@ -47,7 +47,7 @@ export const recoverPassword = (email: string) => async (dispatch: Dispatch) => 
         dispatch(setLoading({isLoading: true}));
         const response = await api.recoverPassword(email);
         response && dispatch(setPasRecover({...response}));
-    } catch (e: any) { // TODO: delete any type
+    } catch (e: any) {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console');
