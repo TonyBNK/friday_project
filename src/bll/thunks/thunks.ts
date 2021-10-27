@@ -63,8 +63,12 @@ export const setAppInitialize = () => async (dispatch: Dispatch) => {
         const response = await api.me();
         dispatch(setLoading({isLoading: false}));
         response && dispatch(setLogged(response));
-    } catch (e) {
-        console.log(e);
+    } catch (e: any) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        console.log(error);
+        console.log('Error: ', {...e});
     } finally {
         dispatch(setAppInitialized({isInitialized: true}));
     }
