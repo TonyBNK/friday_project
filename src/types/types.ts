@@ -55,14 +55,6 @@ export type RegisterFormikErrorType = {
     confirmPassword?: string
 }
 
-export type RegisterResponseErrorType = {
-    data: {
-        error: string
-        email: string
-        in: string
-    }
-}
-
 // Password recovery types
 export type PasswordRecoveryRequestType = {
     email: string
