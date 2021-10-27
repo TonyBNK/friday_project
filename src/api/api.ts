@@ -16,13 +16,9 @@ const axiosInst = axios.create({
 
 export const api = {
     me: async () => {
-        try {
-            const response = await axiosInst
-                .post<{}, AxiosResponse<LoginResponseType>>('http://localhost:7542/2.0/auth/me', {});
-            return response.data;
-        } catch (e) {
-            console.log(e);
-        }
+        const response = await axiosInst
+            .post<{}, AxiosResponse<LoginResponseType>>('http://localhost:7542/2.0/auth/me', {});
+        return response.data;
     },
     logIn: async (loginData: LoginRequestType) => {
         const response = await axiosInst

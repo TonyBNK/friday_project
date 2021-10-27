@@ -1,8 +1,13 @@
+import {createSlice} from "@reduxjs/toolkit";
+
 const initialState = {}
 
-export const profileReducer = (state: any = initialState, action: any): any => {
-    switch (action.type) {
-        default:
-            return state;
-    }
-};
+const profileSlice = createSlice({
+    name: 'profile',
+    initialState: initialState,
+    reducers: {}
+})
+
+export const profileReducer = profileSlice.reducer;
+
+export const {} = profileSlice.actions;

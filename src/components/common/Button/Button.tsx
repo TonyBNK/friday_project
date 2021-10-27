@@ -6,6 +6,10 @@ import {Button as ButtonFromAnt} from 'antd';
 type ButtonPropsType = {
     disabled?: boolean
     onClick?: () => void
+    style?: {
+        position: string
+        right: number
+    }
     htmlType?: "button" | "submit" | "reset"
 }
 

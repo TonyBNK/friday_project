@@ -70,3 +70,8 @@ export type PasswordRecoveryResponseType = {
 export type PasswordRecoveryFormikErrorType = {
     email?: string
 }
+
+// Profile types
+export type ProfileStateType = {
+    isLogged: boolean
+}
