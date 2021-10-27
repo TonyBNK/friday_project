@@ -5,13 +5,16 @@ import {LoginRequestType, RegisterRequestType} from "../../types/types";
 import {setRegisterError} from "../reducers/registrationReducer";
 import {setPasRecover} from "../reducers/passwordRecoveryReducer";
 import {setAppInitialized, setLoading} from "../reducers/appReducer";
+import {setProfileData} from "../reducers/profileReducer";
 
 
 export const logIn = (loginData: LoginRequestType) => async (dispatch: Dispatch) => {
     try {
         dispatch(setLoading({isLoading: true}));
         const response = await api.logIn(loginData);
-        response && dispatch(setLogged(response));
+        debugger;
+        dispatch(setProfileData(response));
+        dispatch(setLogged({isLogged: true}));
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error
@@ -60,9 +63,10 @@ export const recoverPassword = (email: string) => async (dispatch: Dispatch) => 
 
 export const setAppInitialize = () => async (dispatch: Dispatch) => {
     try {
+        dispatch(setLoading({isLoading: true}));
         const response = await api.me();
-        dispatch(setLoading({isLoading: false}));
-        response && dispatch(setLogged(response));
+        dispatch(setProfileData(response));
+        dispatch(setLogged({isLogged: true}));
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error
@@ -70,6 +74,7 @@ export const setAppInitialize = () => async (dispatch: Dispatch) => {
         console.log(error);
         console.log('Error: ', {...e});
     } finally {
+        dispatch(setLoading({isLoading: false}));
         dispatch(setAppInitialized({isInitialized: true}));
     }
 }

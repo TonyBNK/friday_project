@@ -8,7 +8,6 @@ import {logIn} from "../../../bll/thunks/thunks";
 import {
     LoginFormikErrorType,
     LoginRequestType,
-    LoginResponseType,
     RootStateType
 } from "../../../types/types";
 import {Redirect} from "react-router-dom";
@@ -21,8 +20,8 @@ export const Login = () => {
     const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
 
     const dispatch = useDispatch();
-    const {_id: userId} = useSelector<RootStateType, LoginResponseType>(
-        state => state.login
+    const isLogged = useSelector<RootStateType, boolean>(
+        state => state.login.isLogged
     )
     const isLoading = useSelector<RootStateType, boolean>(
         state => state.app.isLoading
@@ -59,7 +58,7 @@ export const Login = () => {
         },
         onSubmit: values => {
             setButtonDisabled(true);
-            dispatch(logIn({...values}));
+            dispatch(logIn(values));
         },
     });
 
@@ -84,7 +83,7 @@ export const Login = () => {
         </div>
     }
 
-    if (userId) {
+    if (isLogged) {
         return <Redirect to={PATH.PROFILE}/>
     }
 

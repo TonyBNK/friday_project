@@ -9,17 +9,13 @@ import {Spin} from "antd";
 
 
 function App() {
-    const {isLoading, isInitialized} = useSelector<RootStateType, AppStateType>(
+    const {isInitialized} = useSelector<RootStateType, AppStateType>(
         state => state.app
     );
-    const hasUserId = useSelector<RootStateType, boolean>(
-        state => !!state.login._id
+    const isLogged = useSelector<RootStateType, boolean>(
+        state => state.login.isLogged
     );
     const dispatch = useDispatch();
-
-    const onLogOutClickHandler = () => {
-        //dispatch(logOut());
-    }
 
     useEffect(() => {
         dispatch(setAppInitialize());
@@ -38,7 +34,7 @@ function App() {
 
     return (
         <div className="App">
-            <Header isLogged={hasUserId}/>
+            <Header isLogged={isLogged}/>
             <Routes/>
         </div>
     );

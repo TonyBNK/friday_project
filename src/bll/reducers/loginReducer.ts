@@ -1,29 +1,17 @@
-import {LoginResponseType} from "../../types/types";
+import {LoginStateType} from "../../types/types";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 
-const initialState: LoginResponseType = {
-        _id: '',
-        avatar: '',
-        name: '',
-        created: undefined,
-        email: '',
-        error: '',
-        isAdmin: false,
-        publicCardPacksCount: 0,
-        rememberMe: false,
-        updated: undefined,
-        verified: false
+const initialState: LoginStateType = {
+        isLogged: false
 };
 
 const loginSlice = createSlice({
     name: 'login',
     initialState: initialState,
     reducers: {
-        setLogged(state, action: PayloadAction<LoginResponseType>) {
-            state._id = action.payload._id;
-            state.avatar = action.payload.avatar;
-            state.name = action.payload.name;
+        setLogged(state, action: PayloadAction<LoginStateType>) {
+            state.isLogged = action.payload.isLogged;
         }
     }
 })

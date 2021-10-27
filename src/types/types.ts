@@ -18,18 +18,8 @@ export type LoginRequestType = {
     rememberMe: boolean
 }
 
-export type LoginResponseType = {
-        _id?: string
-        email?: string
-        name?: string
-        avatar?: string
-        publicCardPacksCount?: number
-        created?: Date
-        updated?: Date
-        isAdmin?: boolean
-        verified?: boolean
-        rememberMe?: boolean
-        error?: string;
+export type LoginStateType = {
+    isLogged: boolean
 }
 
 export type LoginFormikErrorType = {
@@ -72,6 +62,16 @@ export type PasswordRecoveryFormikErrorType = {
 }
 
 // Profile types
-export type ProfileStateType = {
-    isLogged: boolean
+export type ProfileResponseType = {
+        _id?: string
+        email?: string
+        name?: string
+        avatar?: string
+        publicCardPacksCount?: number
+        created?: Date
+        updated?: Date
+        isAdmin?: boolean
+        verified?: boolean
+        rememberMe?: boolean
+        error?: string
 }

@@ -1,7 +1,7 @@
 import axios, {AxiosResponse} from "axios";
 import {
     LoginRequestType,
-    LoginResponseType,
+    ProfileResponseType,
     PasswordRecoveryRequestType,
     PasswordRecoveryResponseType,
     RegisterRequestType,
@@ -17,12 +17,12 @@ const axiosInst = axios.create({
 export const api = {
     me: async () => {
         const response = await axiosInst
-            .post<{}, AxiosResponse<LoginResponseType>>('http://localhost:7542/2.0/auth/me', {});
+            .post<{}, AxiosResponse<ProfileResponseType>>('http://localhost:7542/2.0/auth/me', {});
         return response.data;
     },
     logIn: async (loginData: LoginRequestType) => {
         const response = await axiosInst
-            .post<LoginRequestType, AxiosResponse<LoginResponseType>>(
+            .post<LoginRequestType, AxiosResponse<ProfileResponseType>>(
                 'http://localhost:7542/2.0/auth/login', {
                     ...loginData
                 }
