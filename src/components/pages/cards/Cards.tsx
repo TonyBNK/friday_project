@@ -3,7 +3,12 @@ import c from "./Cards.module.scss";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {CardType, RootStateType} from "../../../types/types";
-import {addNewCard, addNewPack, getCards} from "../../../bll/thunks/thunks";
+import {
+    addNewCard,
+    addNewPack,
+    deleteCard,
+    getCards
+} from "../../../bll/thunks/thunks";
 import {Spin} from "antd";
 
 
@@ -68,7 +73,7 @@ export const Cards = () => {
                     {
                         cards.map(card => {
                             const onDeleteClick = () => {
-
+                                dispatch(deleteCard(card._id, card.cardsPack_id));
                             }
                             const onEditClick = () => {
 

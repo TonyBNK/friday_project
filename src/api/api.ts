@@ -14,7 +14,7 @@ import {
     PutPackRequestType,
     GetCardsRequestType,
     GetCardsResponseType,
-    PostCardRequestType
+    PostCardRequestType, PutCardRequestType
 } from "../types/types";
 
 
@@ -106,5 +106,17 @@ export const cardsAPI = {
     addNewCard: async (card: PostCardRequestType) => {
         await axiosInst
             .post('http://localhost:7542/2.0/cards/card', card);
+    },
+    deleteCard: async (cardId: string) => {
+        await axiosInst
+            .delete('http://localhost:7542/2.0/cards/card', {
+                params: {
+                    id: cardId
+                }
+            });
+    },
+    updateCard: async (card: PutCardRequestType) => {
+        await axiosInst
+            .put('http://localhost:7542/2.0/cards/card', card);
     },
 }

@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {setLogged} from "../reducers/loginReducer";
 import {authAPI, cardsAPI, packsAPI} from "../../api/api";
 import {
+    CardType,
     LoginRequestType, PostCardRequestType,
     PostPackRequestType,
     PutPackRequestType,
@@ -186,6 +187,38 @@ export const addNewCard = (card: PostCardRequestType) => async (dispatch: Dispat
         dispatch(setLoading({isLoading: true}));
         await cardsAPI.addNewCard(card);
         dispatch(getCards(card.card.cardsPack_id));
+    } catch (e: any) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        console.log(error);
+        console.log('Error: ', {...e});
+    } finally {
+        dispatch(setLoading({isLoading: false}));
+    }
+}
+
+export const deleteCard = (cardId: string, cardsPackId: string) => async (dispatch: Dispatch<any>) => {
+    try {
+        dispatch(setLoading({isLoading: true}));
+        await cardsAPI.deleteCard(cardId);
+        dispatch(getCards(cardsPackId));
+    } catch (e: any) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        console.log(error);
+        console.log('Error: ', {...e});
+    } finally {
+        dispatch(setLoading({isLoading: false}));
+    }
+}
+
+export const updateCard = (cardsPack: PutPackRequestType) => async (dispatch: Dispatch<any>) => {
+    try {
+        dispatch(setLoading({isLoading: true}));
+        await packsAPI.updatePack(cardsPack);
+        dispatch(getPacks());
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error
