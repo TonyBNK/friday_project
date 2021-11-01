@@ -81,3 +81,19 @@ export type ProfileResponseType = {
         rememberMe?: boolean
         error?: string
 }
+
+// Pack types
+export type CardPackType = {
+    _id: string
+    user_id: string
+    name: string
+    path: string
+    cardsCount: number
+    grade: number
+    shots: number
+    rating: number
+    type: string
+    created: string
+    updated: string
+    __v: number
+}
