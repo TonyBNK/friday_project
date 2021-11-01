@@ -70,13 +70,13 @@ export const Paginator: React.FC<PaginatorPropsType> = React.memo((
             <button
                 onClick={onPreviousClick}
                 disabled={portionNumber <= 1}>
-                {'<'}
+                ◀
             </button>
             {pagesList}
             <button
                 onClick={onNextClick}
                 disabled={portionCount <= portionNumber}>
-                {'>'}
+                ▶
             </button>
             <label>
                 <select

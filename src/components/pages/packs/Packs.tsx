@@ -33,6 +33,9 @@ export const Packs = () => {
     } = useSelector<RootStateType, GetPacksResponseType>(
         state => state.packs.response
     );
+    const sortPacks = useSelector<RootStateType, string | undefined>(
+        state => state.packs.request.sortPacks
+    );
     const myId = useSelector<RootStateType, string | undefined>(
         state => state.profile._id
     );
@@ -71,6 +74,14 @@ export const Packs = () => {
         dispatch(setRequestParams({...params, page}))
         dispatch(getPacks());
     }
+    const onSortUpByDate = () => {
+        dispatch(setRequestParams({...params, sortPacks: '0updated'}));
+        dispatch(getPacks());
+    }
+    const onSortDownByDate = () => {
+        dispatch(setRequestParams({...params, sortPacks: '1updated'}));
+        dispatch(getPacks());
+    }
 
     if (isLoading) {
         return <div style={{
@@ -106,7 +117,13 @@ export const Packs = () => {
                         <tr>
                             <th>Name</th>
                             <th>Cards</th>
-                            <th>Last Updated</th>
+                            <th>
+                                Last Updated {
+                                sortPacks === '0updated'
+                                    ? <button onClick={onSortDownByDate}>▲</button>
+                                    : <button onClick={onSortUpByDate}>▼</button>
+                            }
+                            </th>
                             <th>Created by</th>
                             <th>Actions</th>
                         </tr>
@@ -132,8 +149,8 @@ export const Packs = () => {
                                         </NavLink>
                                     </td>
                                     <td>{pack.cardsCount}</td>
-                                    <td>{pack.updated}</td>
-                                    <td>{pack.created}</td>
+                                    <td>{new Date(pack.updated).toLocaleDateString()}</td>
+                                    <td>{new Date(pack.created).toLocaleDateString()}</td>
                                     <td>
                                         {
                                             pack.user_id === myId

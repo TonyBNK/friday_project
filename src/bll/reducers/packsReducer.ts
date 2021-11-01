@@ -11,7 +11,7 @@ const initialState: GetPacksStateType = {
         packName: undefined,
         min: undefined,
         max: undefined,
-        sortPacks: undefined,
+        sortPacks: '0updated',
         page: 1,
         pageCount: 5,
         user_id: undefined,
