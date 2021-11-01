@@ -7,7 +7,7 @@ import {PATH} from "../Routes";
 
 
 export const Profile = () => {
-    const {avatar, name} = useSelector<RootStateType, ProfileResponseType>(state => state.profile);
+    const {avatar, name, _id} = useSelector<RootStateType, ProfileResponseType>(state => state.profile);
     const isLogged = useSelector<RootStateType, boolean>(
         state => state.login.isLogged
     )
@@ -19,7 +19,10 @@ export const Profile = () => {
         <div className={c.profileContainer}>
             <img src={avatar} alt="ava"/>
             <div className={c.name}>
-                {name}
+                <b>Name</b>: {name}
+            </div>
+            <div className={c.userId}>
+                <b>My ID</b>: {_id}
             </div>
         </div>
     )

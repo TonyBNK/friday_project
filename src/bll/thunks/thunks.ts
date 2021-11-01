@@ -1,7 +1,11 @@
 import {Dispatch} from "redux";
 import {setLogged} from "../reducers/loginReducer";
 import {authAPI, packsAPI} from "../../api/api";
-import {LoginRequestType, RegisterRequestType} from "../../types/types";
+import {
+    GetCardPackStateType,
+    LoginRequestType,
+    RegisterRequestType
+} from "../../types/types";
 import {setRegisterError} from "../reducers/registrationReducer";
 import {setPasRecover} from "../reducers/passwordRecoveryReducer";
 import {setAppInitialized, setLoading} from "../reducers/appReducer";
@@ -95,10 +99,10 @@ export const setAppInitialize = () => async (dispatch: Dispatch) => {
     }
 }
 
-export const getPacks = () => async (dispatch: Dispatch) => {
+export const getPacks = () => async (dispatch: Dispatch, getState: Function) => {
     try {
         dispatch(setLoading({isLoading: true}));
-        const response = await packsAPI.getPacks();
+        const response = await packsAPI.getPacks(getState().packs.request);
         response && dispatch(setCardPacks(response.cardPacks));
     } catch (e: any) {
         const error = e.response

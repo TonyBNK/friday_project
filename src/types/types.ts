@@ -98,6 +98,16 @@ export type CardPackType = {
     __v: number
 }
 
+export type GetCardPackRequestType = {
+    packName?: string
+    min?: number
+    max?: number
+    sortPacks?: string
+    page?: number
+    pageCount?: number
+    user_id?: string
+}
+
 export type GetCardPackResponseType = {
     cardPacks: Array<CardPackType>
     cardPacksTotalCount: number
@@ -105,4 +115,9 @@ export type GetCardPackResponseType = {
     minCardsCount: number
     page: number
     pageCount: number
+}
+
+export type GetCardPackStateType = {
+    request: GetCardPackRequestType
+    response: GetCardPackResponseType
 }
