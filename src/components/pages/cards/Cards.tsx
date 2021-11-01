@@ -7,7 +7,7 @@ import {
     addNewCard,
     addNewPack,
     deleteCard,
-    getCards
+    getCards, updateCard, updatePack
 } from "../../../bll/thunks/thunks";
 import {Spin} from "antd";
 
@@ -76,7 +76,14 @@ export const Cards = () => {
                                 dispatch(deleteCard(card._id, card.cardsPack_id));
                             }
                             const onEditClick = () => {
-
+                                dispatch(updateCard({
+                                    card: {
+                                        ...cards,
+                                        cardsPack_id: card.cardsPack_id,
+                                        _id: card._id,
+                                        question: 'How are you?'
+                                    }
+                                }));
                             }
 
                             return <tr key={card._id}>

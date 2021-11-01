@@ -210,13 +210,16 @@ export type PostCardRequestType = {
 export type PutCardRequestType = {
     card: {
         _id: string
-        name?: string
-        path?: string
+        cardsPack_id: string
+        question?: string
+        answer?: string
         grade?: number
         shots?: number
         rating?: number
-        deckCover?: string
-        private?: boolean
+        answerImg?: string
+        questionImg?: string
+        questionVideo?: string
+        answerVideo?: string
         type?: string
     }
 }

@@ -4,7 +4,7 @@ import {authAPI, cardsAPI, packsAPI} from "../../api/api";
 import {
     CardType,
     LoginRequestType, PostCardRequestType,
-    PostPackRequestType,
+    PostPackRequestType, PutCardRequestType,
     PutPackRequestType,
     RegisterRequestType
 } from "../../types/types";
@@ -214,11 +214,11 @@ export const deleteCard = (cardId: string, cardsPackId: string) => async (dispat
     }
 }
 
-export const updateCard = (cardsPack: PutPackRequestType) => async (dispatch: Dispatch<any>) => {
+export const updateCard = (card: PutCardRequestType) => async (dispatch: Dispatch<any>) => {
     try {
         dispatch(setLoading({isLoading: true}));
-        await packsAPI.updatePack(cardsPack);
-        dispatch(getPacks());
+        await cardsAPI.updateCard(card);
+        dispatch(getCards(card.card.cardsPack_id));
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error
