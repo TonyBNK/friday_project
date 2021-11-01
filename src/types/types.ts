@@ -69,17 +69,17 @@ export type PasswordRecoveryFormikErrorType = {
 
 // Profile types
 export type ProfileResponseType = {
-        _id?: string
-        email?: string
-        name?: string
-        avatar?: string
-        publicCardPacksCount?: number
-        created?: Date
-        updated?: Date
-        isAdmin?: boolean
-        verified?: boolean
-        rememberMe?: boolean
-        error?: string
+    _id?: string
+    email?: string
+    name?: string
+    avatar?: string
+    publicCardPacksCount?: number
+    created?: Date
+    updated?: Date
+    isAdmin?: boolean
+    verified?: boolean
+    rememberMe?: boolean
+    error?: string
 }
 
 // Pack types
@@ -96,4 +96,13 @@ export type CardPackType = {
     created: string
     updated: string
     __v: number
+}
+
+export type GetCardPackResponseType = {
+    cardPacks: Array<CardPackType>
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
 }

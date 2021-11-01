@@ -1,4 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {CardPackType} from "../../types/types";
 
 
 const initialState = {
@@ -29,10 +30,12 @@ const packsSlice = createSlice({
     name: 'packs',
     initialState: initialState,
     reducers: {
-
+        setCardPacks(state, action: PayloadAction<Array<CardPackType>>) {
+            state.cardPacks = action.payload;
+        },
     }
 });
 
 export const packsReducer = packsSlice.reducer;
 
-export const {} = packsSlice.actions;
+export const {setCardPacks} = packsSlice.actions;
