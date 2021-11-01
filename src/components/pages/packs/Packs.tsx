@@ -60,71 +60,79 @@ export const Packs = () => {
     }
 
     return (
-        <div className={c.packsContainer}>
-            <div className={c.buttonContainer}>
-                <button onClick={onMyClick}>My</button>
-                <button onClick={onAllClick}>All</button>
-                <button onClick={onAddNewPackClick}>Add new pack</button>
-            </div>
-            <div className={c.tableContainer}>
-                <h2>Packs list</h2>
-                <table>
-                    <tbody>
-                    <tr>
-                        <th>Name</th>
-                        <th>Cards</th>
-                        <th>Last Updated</th>
-                        <th>Created by</th>
-                        <th>Actions</th>
-                    </tr>
-                    {
-                        cardPacks.map(pack => {
-                            const onDeleteClick = () => {
-                                dispatch(deletePack(pack._id));
-                            }
-                            const onEditClick = () => {
-                                dispatch(updatePack({
-                                    cardsPack: {
-                                        ...cardPacks,
-                                        _id: pack._id,
-                                        name: 'no named pack'
-                                    }
-                                }));
-                            }
-
-                            return <tr key={pack._id}>
-                                <td>
-                                    <NavLink to={'/cards/' + pack._id}>
-                                        {pack.name}
-                                    </NavLink>
-                                </td>
-                                <td>{pack.cardsCount}</td>
-                                <td>{pack.updated}</td>
-                                <td>{pack.created}</td>
-                                <td>
-                                    {
-                                        pack.user_id === myId
-                                            ? <>
-                                                <button onClick={onDeleteClick}>
-                                                    Delete
-                                                </button>
-                                                <button onClick={onEditClick}>
-                                                    Edit
-                                                </button>
-                                                <button>
-                                                    Learn
-                                                </button>
-                                            </>
-                                            : <button>
-                                                Learn
-                                            </button>
-                                    }
-                                </td>
+            <div className={c.packsContainer}>
+                <div className={c.titleContainer}>
+                    <h2>Packs list</h2>
+                    <input type="text"/><button>+</button>
+                </div>
+                <div className={c.bodyContainer}>
+                    <div className={c.buttonContainer}>
+                        <button onClick={onMyClick}>My</button>
+                        <button onClick={onAllClick}>All</button>
+                        <button onClick={onAddNewPackClick}>Add new pack
+                        </button>
+                    </div>
+                    <div className={c.tableContainer}>
+                        <table>
+                            <tbody>
+                            <tr>
+                                <th>Name</th>
+                                <th>Cards</th>
+                                <th>Last Updated</th>
+                                <th>Created by</th>
+                                <th>Actions</th>
                             </tr>
-                        })
-                    }</tbody>
-                </table>
+                            {
+                                cardPacks.map(pack => {
+                                    const onDeleteClick = () => {
+                                        dispatch(deletePack(pack._id));
+                                    }
+                                    const onEditClick = () => {
+                                        dispatch(updatePack({
+                                            cardsPack: {
+                                                ...cardPacks,
+                                                _id: pack._id,
+                                                name: 'no named pack'
+                                            }
+                                        }));
+                                    }
+
+                                    return <tr key={pack._id}>
+                                        <td>
+                                            <NavLink to={'/cards/' + pack._id}>
+                                                {pack.name}
+                                            </NavLink>
+                                        </td>
+                                        <td>{pack.cardsCount}</td>
+                                        <td>{pack.updated}</td>
+                                        <td>{pack.created}</td>
+                                        <td>
+                                            {
+                                                pack.user_id === myId
+                                                    ? <>
+                                                        <button
+                                                            onClick={onDeleteClick}>
+                                                            Delete
+                                                        </button>
+                                                        <button
+                                                            onClick={onEditClick}>
+                                                            Edit
+                                                        </button>
+                                                        <button>
+                                                            Learn
+                                                        </button>
+                                                    </>
+                                                    : <button>
+                                                        Learn
+                                                    </button>
+                                            }
+                                        </td>
+                                    </tr>
+                                })
+                            }</tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
     )
 }
