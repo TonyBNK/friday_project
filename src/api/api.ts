@@ -70,8 +70,15 @@ export const packsAPI = {
         return response.data;
     },
     addNewPack: async (cardsPack: PostCardsPackRequestType) => {
-        const response = await axiosInst
+        await axiosInst
             .post('http://localhost:7542/2.0/cards/pack', cardsPack);
-        return response.data;
+    },
+    deletePack: async (cardsPackId: string) => {
+        await axiosInst
+            .delete('http://localhost:7542/2.0/cards/pack', {
+                params: {
+                    id: cardsPackId
+                }
+            });
     }
 }

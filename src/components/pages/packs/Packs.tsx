@@ -6,7 +6,7 @@ import {
     GetCardsPackRequestType,
     RootStateType
 } from "../../../types/types";
-import {addNewPack, getPacks} from "../../../bll/thunks/thunks";
+import {addNewPack, deletePack, getPacks} from "../../../bll/thunks/thunks";
 import {setRequestParams} from "../../../bll/reducers/packsReducer";
 
 
@@ -56,13 +56,37 @@ export const Packs = () => {
                         <th>Actions</th>
                     </tr>
                     {
-                        cardPacks.map(pack => <tr key={pack._id}>
-                            <td>{pack.name}</td>
-                            <td>{pack.cardsCount}</td>
-                            <td>{pack.updated}</td>
-                            <td>{pack.created}</td>
-                            <td>Actions Buttons</td>
-                        </tr>)
+                        cardPacks.map(pack => {
+                            const onDeleteClick = () => {
+                                dispatch(deletePack(pack._id));
+                            }
+
+                            return <tr key={pack._id}>
+                                <td>{pack.name}</td>
+                                <td>{pack.cardsCount}</td>
+                                <td>{pack.updated}</td>
+                                <td>{pack.created}</td>
+                                <td>
+                                    {
+                                        pack.user_id === myId
+                                            ? <>
+                                                <button onClick={onDeleteClick}>
+                                                    Delete
+                                                </button>
+                                                <button>
+                                                    Edit
+                                                </button>
+                                                <button>
+                                                    Learn
+                                                </button>
+                                            </>
+                                            : <button>
+                                                Learn
+                                            </button>
+                                    }
+                                </td>
+                            </tr>
+                        })
                     }</tbody>
                 </table>
             </div>

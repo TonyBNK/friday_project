@@ -130,3 +130,19 @@ export const addNewPack = (cardsPack: PostCardsPackRequestType) => async (dispat
         dispatch(setLoading({isLoading: false}));
     }
 }
+
+export const deletePack = (cardsPackId: string) => async (dispatch: Dispatch<any>) => {
+    try {
+        dispatch(setLoading({isLoading: true}));
+        await packsAPI.deletePack(cardsPackId);
+        dispatch(getPacks());
+    } catch (e: any) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        console.log(error);
+        console.log('Error: ', {...e});
+    } finally {
+        dispatch(setLoading({isLoading: false}));
+    }
+}

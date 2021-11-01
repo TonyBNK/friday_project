@@ -133,5 +133,4 @@ export type PostCardsPackRequestType = {
         private?: boolean
         type?: string
     }
-
 }
