@@ -16,6 +16,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    margin-bottom: 30px;
 
     .tableContainer {
       display: flex;
@@ -36,5 +37,10 @@
         }
       }
     }
+  }
+
+  .footerContainer{
+    display: flex;
+    justify-content: center;
   }
 }

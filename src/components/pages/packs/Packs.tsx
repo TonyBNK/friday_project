@@ -15,6 +15,7 @@ import {
 import {setRequestParams} from "../../../bll/reducers/packsReducer";
 import {NavLink} from "react-router-dom";
 import {Spin} from "antd";
+import {Paginator} from "../../common/Paginator/Paginator";
 
 
 export const Packs = () => {
@@ -144,6 +145,13 @@ export const Packs = () => {
                             })
                         }</tbody>
                     </table>
+                </div>
+            </div>
+            <div className={c.footerContainer}>
+                <div className={c.paginationContainer}>
+                    <Paginator currentPage={1} pageSize={4}
+                               itemsTotalCount={100} requestItems={() => {
+                    }}/>
                 </div>
             </div>
         </div>
