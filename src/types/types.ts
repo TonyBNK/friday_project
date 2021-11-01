@@ -134,3 +134,17 @@ export type PostCardsPackRequestType = {
         type?: string
     }
 }
+
+export type PutCardsPackRequestType = {
+    cardsPack: {
+        _id: string
+        name?: string
+        path?: string
+        grade?: number
+        shots?: number
+        rating?: number
+        deckCover?: string
+        private?: boolean
+        type?: string
+    }
+}

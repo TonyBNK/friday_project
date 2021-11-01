@@ -3,7 +3,7 @@ import {setLogged} from "../reducers/loginReducer";
 import {authAPI, packsAPI} from "../../api/api";
 import {
     GetCardsPackStateType,
-    LoginRequestType, PostCardsPackRequestType,
+    LoginRequestType, PostCardsPackRequestType, PutCardsPackRequestType,
     RegisterRequestType
 } from "../../types/types";
 import {setRegisterError} from "../reducers/registrationReducer";
@@ -135,6 +135,22 @@ export const deletePack = (cardsPackId: string) => async (dispatch: Dispatch<any
     try {
         dispatch(setLoading({isLoading: true}));
         await packsAPI.deletePack(cardsPackId);
+        dispatch(getPacks());
+    } catch (e: any) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        console.log(error);
+        console.log('Error: ', {...e});
+    } finally {
+        dispatch(setLoading({isLoading: false}));
+    }
+}
+
+export const updatePack = (cardsPack: PutCardsPackRequestType) => async (dispatch: Dispatch<any>) => {
+    try {
+        dispatch(setLoading({isLoading: true}));
+        await packsAPI.updatePack(cardsPack);
         dispatch(getPacks());
     } catch (e: any) {
         const error = e.response

@@ -6,7 +6,12 @@ import {
     GetCardsPackRequestType,
     RootStateType
 } from "../../../types/types";
-import {addNewPack, deletePack, getPacks} from "../../../bll/thunks/thunks";
+import {
+    addNewPack,
+    deletePack,
+    getPacks,
+    updatePack
+} from "../../../bll/thunks/thunks";
 import {setRequestParams} from "../../../bll/reducers/packsReducer";
 
 
@@ -60,6 +65,15 @@ export const Packs = () => {
                             const onDeleteClick = () => {
                                 dispatch(deletePack(pack._id));
                             }
+                            const onEditClick = () => {
+                                dispatch(updatePack({
+                                    cardsPack: {
+                                        ...cardPacks,
+                                        _id: pack._id,
+                                        name: 'no named pack'
+                                    }
+                                }));
+                            }
 
                             return <tr key={pack._id}>
                                 <td>{pack.name}</td>
@@ -73,7 +87,7 @@ export const Packs = () => {
                                                 <button onClick={onDeleteClick}>
                                                     Delete
                                                 </button>
-                                                <button>
+                                                <button onClick={onEditClick}>
                                                     Edit
                                                 </button>
                                                 <button>

@@ -8,7 +8,10 @@ import {
     RegisterResponseType,
     LogoutResponseType,
     GetCardsPackResponseType,
-    GetCardsPackRequestType, CardsPackType, PostCardsPackRequestType
+    GetCardsPackRequestType,
+    CardsPackType,
+    PostCardsPackRequestType,
+    PutCardsPackRequestType
 } from "../types/types";
 
 
@@ -80,5 +83,9 @@ export const packsAPI = {
                     id: cardsPackId
                 }
             });
-    }
+    },
+    updatePack: async (cardsPack: PutCardsPackRequestType) => {
+        await axiosInst
+            .put('http://localhost:7542/2.0/cards/pack', cardsPack);
+    },
 }
