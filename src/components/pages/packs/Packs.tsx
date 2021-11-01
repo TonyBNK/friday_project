@@ -3,7 +3,7 @@ import c from "./Packs.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {
     GetPacksRequestType,
-    PackType,
+    GetPacksResponseType,
     RootStateType
 } from "../../../types/types";
 import {
@@ -25,8 +25,13 @@ export const Packs = () => {
         dispatch(getPacks());
     }, []);
 
-    const cardPacks = useSelector<RootStateType, Array<PackType>>(
-        state => state.packs.response.cardPacks
+    const {
+        cardPacks,
+        cardPacksTotalCount,
+        pageCount,
+        page
+    } = useSelector<RootStateType, GetPacksResponseType>(
+        state => state.packs.response
     );
     const myId = useSelector<RootStateType, string | undefined>(
         state => state.profile._id
@@ -34,7 +39,11 @@ export const Packs = () => {
     const isLoading = useSelector<RootStateType, boolean>(
         state => state.app.isLoading
     );
-    const [params, setParams] = useState<GetPacksRequestType>({packName: ''});
+    const params = useSelector<RootStateType, GetPacksRequestType>(
+        state => state.packs.request
+    );
+
+    const [packName, setPackName] = useState<string>('');
 
     const onMyClick = () => {
         dispatch(setRequestParams({...params, user_id: myId}));
@@ -48,13 +57,18 @@ export const Packs = () => {
         dispatch(addNewPack({cardsPack: {}}));
     }
     const onChangeInputSearch = (e: ChangeEvent<HTMLInputElement>) => {
-        setParams({
-            ...params,
-            packName: e.currentTarget.value
-        })
+        setPackName(e.currentTarget.value);
     }
     const onSearchClick = () => {
-        dispatch(setRequestParams({...params, packName: params.packName}));
+        dispatch(setRequestParams({...params, packName: packName}));
+        dispatch(getPacks());
+    }
+    const onChangePageCount = (pageCount: number) => {
+        dispatch(setRequestParams({...params, pageCount}))
+        dispatch(getPacks());
+    }
+    const onChangePage = (page: number) => {
+        dispatch(setRequestParams({...params, page}))
         dispatch(getPacks());
     }
 
@@ -149,9 +163,12 @@ export const Packs = () => {
             </div>
             <div className={c.footerContainer}>
                 <div className={c.paginationContainer}>
-                    <Paginator currentPage={1} pageSize={4}
-                               itemsTotalCount={100} requestItems={() => {
-                    }}/>
+                    <Paginator
+                        page={page}
+                        pageCount={pageCount}
+                        itemsTotalCount={cardPacksTotalCount}
+                        changePageCount={onChangePageCount}
+                        changePage={onChangePage}/>
                 </div>
             </div>
         </div>

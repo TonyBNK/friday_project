@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {
     PackType,
     GetPacksRequestType,
-    GetPacksStateType
+    GetPacksStateType, GetPacksResponseType
 } from "../../types/types";
 
 
@@ -12,8 +12,8 @@ const initialState: GetPacksStateType = {
         min: undefined,
         max: undefined,
         sortPacks: undefined,
-        page: undefined,
-        pageCount: undefined,
+        page: 1,
+        pageCount: 5,
         user_id: undefined,
     },
     response: {
@@ -37,7 +37,7 @@ const initialState: GetPacksStateType = {
         maxCardsCount: 4,
         minCardsCount: 0,
         page: 1, // выбранная страница
-        pageCount: 4, // количество элементов на странице
+        pageCount: 5, // количество элементов на странице
     }
 }
 
@@ -48,8 +48,8 @@ const packsSlice = createSlice({
         setRequestParams(state, action: PayloadAction<GetPacksRequestType>){
             state.request = action.payload;
         },
-        setCardPacks(state, action: PayloadAction<Array<PackType>>) {
-            state.response.cardPacks = action.payload;
+        setCardPacks(state, action: PayloadAction<GetPacksResponseType>) {
+            state.response = action.payload;
         }
     }
 });

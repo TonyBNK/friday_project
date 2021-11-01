@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {
     CardType,
-    GetCardsRequestType,
+    GetCardsRequestType, GetCardsResponseType,
     GetCardsStateType
 } from "../../types/types";
 
@@ -50,8 +50,8 @@ const cardsSlice = createSlice({
         setRequestParams(state, action: PayloadAction<GetCardsRequestType>){
             state.request = action.payload;
         },
-        setCards(state, action: PayloadAction<Array<CardType>>) {
-            state.response.cards = action.payload;
+        setCards(state, action: PayloadAction<GetCardsResponseType>) {
+            state.response = action.payload;
         },
     }
 });

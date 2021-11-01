@@ -1,22 +1,26 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import c from "./Paginator.module.scss";
+import {useSelector} from "react-redux";
+import {RootStateType} from "../../../types/types";
 
 
 type PaginatorPropsType = {
-    currentPage: number
-    pageSize: number
+    page: number
+    pageCount: number
     itemsTotalCount: number
-    requestItems: (page: number, pageSize: number) => void
+    changePageCount: (pageCount: number) => void
+    changePage: (page: number) => void
 }
 export const Paginator: React.FC<PaginatorPropsType> = React.memo((
     {
-        currentPage,
-        pageSize,
+        page,
+        pageCount,
         itemsTotalCount,
-        requestItems,
+        changePageCount,
+        changePage,
     }
 ) => {
-    const pagesCount = Math.ceil(itemsTotalCount / pageSize);
+    const pagesCount = Math.ceil(itemsTotalCount / pageCount);
     const portionSize = 10;
 
     const pages = [];
@@ -29,25 +33,32 @@ export const Paginator: React.FC<PaginatorPropsType> = React.memo((
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     const rightPortionPageNumber = portionNumber * portionSize;
 
+    const pageCountValue = useSelector<RootStateType, number | undefined>(
+        state => state.packs.request.pageCount
+    )
+
     const onPreviousClick = () => {
         setPortionNumber(portionNumber - 1);
     }
     const onNextClick = () => {
         setPortionNumber(portionNumber + 1);
     }
+    const onChangePageCount = (e: ChangeEvent<HTMLSelectElement>) => {
+        changePageCount(+e.target.value);
+    }
 
     const pagesList = pages
         .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
         .map(p => {
         const onChangeCurrentPageHandler = () => {
-            requestItems(p, pageSize);
+            changePage(p);
         }
 
         return (
             <span
-                className={currentPage === p ? c.pageSelected : ''}
+                className={page === p ? c.pageSelected : ''}
                 onClick={onChangeCurrentPageHandler}
-                style={{margin: '0 5px'}}
+                style={{margin: '0 5px', cursor: 'pointer'}}
             >
                 {p}
             </span>
@@ -59,19 +70,23 @@ export const Paginator: React.FC<PaginatorPropsType> = React.memo((
             <button
                 onClick={onPreviousClick}
                 disabled={portionNumber <= 1}>
-                previous
+                {'<'}
             </button>
             {pagesList}
             <button
                 onClick={onNextClick}
                 disabled={portionCount <= portionNumber}>
-                next
+                {'>'}
             </button>
             <label>
-                <select name="countOfItems">
-                    <option value="five">5</option>
-                    <option value="ten">10</option>
-                    <option value="fifteen">15</option>
+                <select
+                    name="countOfItems"
+                    onChange={onChangePageCount}
+                    value={pageCountValue}
+                >
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
                 </select> Items per page
             </label>
         </div>

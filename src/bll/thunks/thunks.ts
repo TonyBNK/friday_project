@@ -106,7 +106,7 @@ export const getPacks = () => async (dispatch: Dispatch, getState: Function) => 
     try {
         dispatch(setLoading({isLoading: true}));
         const response = await packsAPI.getPacks(getState().packs.request);
-        response && dispatch(setCardPacks(response.cardPacks));
+        response && dispatch(setCardPacks(response));
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error
@@ -170,7 +170,7 @@ export const getCards = (cardsPackId: string) => async (dispatch: Dispatch<any>,
     try {
         dispatch(setLoading({isLoading: true}));
         const response = await cardsAPI.getCards({...getState().packs.request, cardsPack_id: cardsPackId});
-        response && dispatch(setCards(response.cards));
+        response && dispatch(setCards(response));
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error
