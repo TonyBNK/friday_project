@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import c from "./Packs.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    CardsPackType,
-    GetCardsPackRequestType,
+    PackType,
+    GetPacksRequestType,
     RootStateType
 } from "../../../types/types";
 import {
@@ -13,6 +13,8 @@ import {
     updatePack
 } from "../../../bll/thunks/thunks";
 import {setRequestParams} from "../../../bll/reducers/packsReducer";
+import { NavLink } from "react-router-dom";
+import {PATH} from "../Routes";
 
 
 export const Packs = () => {
@@ -22,13 +24,13 @@ export const Packs = () => {
         dispatch(getPacks());
     }, []);
 
-    const cardPacks = useSelector<RootStateType, Array<CardsPackType>>(
+    const cardPacks = useSelector<RootStateType, Array<PackType>>(
         state => state.packs.response.cardPacks
     );
     const myId = useSelector<RootStateType, string | undefined>(
         state => state.profile._id
     );
-    const [params, setParams] = useState<GetCardsPackRequestType>({});
+    const [params, setParams] = useState<GetPacksRequestType>({});
 
     const onMyClick = () => {
         dispatch(setRequestParams({...params, user_id: myId}));
@@ -76,7 +78,11 @@ export const Packs = () => {
                             }
 
                             return <tr key={pack._id}>
-                                <td>{pack.name}</td>
+                                <td>
+                                    <NavLink to={'/cards/' + pack._id}>
+                                        {pack.name}
+                                    </NavLink>
+                                </td>
                                 <td>{pack.cardsCount}</td>
                                 <td>{pack.updated}</td>
                                 <td>{pack.created}</td>

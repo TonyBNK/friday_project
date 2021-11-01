@@ -82,8 +82,8 @@ export type ProfileResponseType = {
     error?: string
 }
 
-// Pack types
-export type CardsPackType = {
+// Packs types
+export type PackType = {
     _id: string
     user_id: string
     name: string
@@ -98,7 +98,7 @@ export type CardsPackType = {
     __v: number
 }
 
-export type GetCardsPackRequestType = {
+export type GetPacksRequestType = {
     packName?: string
     min?: number
     max?: number
@@ -108,8 +108,8 @@ export type GetCardsPackRequestType = {
     user_id?: string
 }
 
-export type GetCardsPackResponseType = {
-    cardPacks: Array<CardsPackType>
+export type GetPacksResponseType = {
+    cardPacks: Array<PackType>
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
@@ -117,12 +117,12 @@ export type GetCardsPackResponseType = {
     pageCount: number
 }
 
-export type GetCardsPackStateType = {
-    request: GetCardsPackRequestType
-    response: GetCardsPackResponseType
+export type GetPacksStateType = {
+    request: GetPacksRequestType
+    response: GetPacksResponseType
 }
 
-export type PostCardsPackRequestType = {
+export type PostPackRequestType = {
     cardsPack: {
         name?: string
         path?: string
@@ -135,7 +135,7 @@ export type PostCardsPackRequestType = {
     }
 }
 
-export type PutCardsPackRequestType = {
+export type PutPackRequestType = {
     cardsPack: {
         _id: string
         name?: string
@@ -147,4 +147,46 @@ export type PutCardsPackRequestType = {
         private?: boolean
         type?: string
     }
+}
+
+// Cards types
+export type CardType = {
+    answer: string
+    question: string
+    cardsPack_id: string
+    grade: number
+    rating: number
+    shots: number
+    type: string
+    user_id: string
+    created: string
+    updated: string
+    __v: number
+    _id: string
+}
+
+export type GetCardsRequestType = {
+    cardsPack_id: string
+    cardAnswer?: string
+    cardQuestion?: string
+    min?: number
+    max?: number
+    sortCards?: string
+    page?: number
+    pageCount?: number
+}
+
+export type GetCardsResponseType = {
+    cards: Array<CardType>
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    page: number
+    pageCount: number
+    packUserId: string
+}
+
+export type GetCardsStateType = {
+    request: GetCardsRequestType
+    response: GetCardsResponseType
 }

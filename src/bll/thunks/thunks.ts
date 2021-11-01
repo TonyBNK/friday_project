@@ -1,9 +1,10 @@
 import {Dispatch} from "redux";
 import {setLogged} from "../reducers/loginReducer";
-import {authAPI, packsAPI} from "../../api/api";
+import {authAPI, cardsAPI, packsAPI} from "../../api/api";
 import {
-    GetCardsPackStateType,
-    LoginRequestType, PostCardsPackRequestType, PutCardsPackRequestType,
+    LoginRequestType,
+    PostPackRequestType,
+    PutPackRequestType,
     RegisterRequestType
 } from "../../types/types";
 import {setRegisterError} from "../reducers/registrationReducer";
@@ -11,6 +12,7 @@ import {setPasRecover} from "../reducers/passwordRecoveryReducer";
 import {setAppInitialized, setLoading} from "../reducers/appReducer";
 import {setProfileData} from "../reducers/profileReducer";
 import {setCardPacks} from "../reducers/packsReducer";
+import {setCards} from "../reducers/cardsReducer";
 
 
 export const logIn = (loginData: LoginRequestType) => async (dispatch: Dispatch) => {
@@ -115,7 +117,7 @@ export const getPacks = () => async (dispatch: Dispatch, getState: Function) => 
     }
 }
 
-export const addNewPack = (cardsPack: PostCardsPackRequestType) => async (dispatch: Dispatch<any>) => {
+export const addNewPack = (cardsPack: PostPackRequestType) => async (dispatch: Dispatch<any>) => {
     try {
         dispatch(setLoading({isLoading: true}));
         await packsAPI.addNewPack(cardsPack);
@@ -147,11 +149,29 @@ export const deletePack = (cardsPackId: string) => async (dispatch: Dispatch<any
     }
 }
 
-export const updatePack = (cardsPack: PutCardsPackRequestType) => async (dispatch: Dispatch<any>) => {
+export const updatePack = (cardsPack: PutPackRequestType) => async (dispatch: Dispatch<any>) => {
     try {
         dispatch(setLoading({isLoading: true}));
         await packsAPI.updatePack(cardsPack);
         dispatch(getPacks());
+    } catch (e: any) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        console.log(error);
+        console.log('Error: ', {...e});
+    } finally {
+        dispatch(setLoading({isLoading: false}));
+    }
+}
+
+export const getCards = (cardsPackId: string) => async (dispatch: Dispatch<any>, getState: Function) => {
+    try {
+        dispatch(setLoading({isLoading: true}));
+        const currState = getState();
+        debugger;
+        const response = await cardsAPI.getCards({...getState().packs.request, cardsPack_id: cardsPackId});
+        response && dispatch(setCards(response.cards));
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error

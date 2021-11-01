@@ -7,11 +7,11 @@ import {
     RegisterRequestType,
     RegisterResponseType,
     LogoutResponseType,
-    GetCardsPackResponseType,
-    GetCardsPackRequestType,
-    CardsPackType,
-    PostCardsPackRequestType,
-    PutCardsPackRequestType
+    GetPacksResponseType,
+    GetPacksRequestType,
+    PackType,
+    PostPackRequestType,
+    PutPackRequestType, GetCardsRequestType, GetCardsResponseType
 } from "../types/types";
 
 
@@ -63,16 +63,16 @@ password recovery link: <a href='http://localhost:3000/friday_project#/password_
 };
 
 export const packsAPI = {
-    getPacks: async (paramsPayload: GetCardsPackRequestType) => {
+    getPacks: async (paramsPayload: GetPacksRequestType) => {
         const response = await axiosInst
-            .get<GetCardsPackRequestType, AxiosResponse<GetCardsPackResponseType>>('http://localhost:7542/2.0/cards/pack', {
+            .get<GetPacksRequestType, AxiosResponse<GetPacksResponseType>>('http://localhost:7542/2.0/cards/pack', {
                 params: {
                     ...paramsPayload
                 }
             });
         return response.data;
     },
-    addNewPack: async (cardsPack: PostCardsPackRequestType) => {
+    addNewPack: async (cardsPack: PostPackRequestType) => {
         await axiosInst
             .post('http://localhost:7542/2.0/cards/pack', cardsPack);
     },
@@ -84,8 +84,20 @@ export const packsAPI = {
                 }
             });
     },
-    updatePack: async (cardsPack: PutCardsPackRequestType) => {
+    updatePack: async (cardsPack: PutPackRequestType) => {
         await axiosInst
             .put('http://localhost:7542/2.0/cards/pack', cardsPack);
+    },
+}
+
+export const cardsAPI = {
+    getCards: async (paramsPayload: GetCardsRequestType) => {
+        const response = await axiosInst
+            .get<GetCardsRequestType, AxiosResponse<GetCardsResponseType>>('http://localhost:7542/2.0/cards/card', {
+                params: {
+                    ...paramsPayload
+                }
+            });
+        return response.data;
     },
 }
