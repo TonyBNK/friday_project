@@ -2,8 +2,8 @@ import {Dispatch} from "redux";
 import {setLogged} from "../reducers/loginReducer";
 import {authAPI, packsAPI} from "../../api/api";
 import {
-    GetCardPackStateType,
-    LoginRequestType,
+    GetCardsPackStateType,
+    LoginRequestType, PostCardsPackRequestType,
     RegisterRequestType
 } from "../../types/types";
 import {setRegisterError} from "../reducers/registrationReducer";
@@ -104,6 +104,22 @@ export const getPacks = () => async (dispatch: Dispatch, getState: Function) => 
         dispatch(setLoading({isLoading: true}));
         const response = await packsAPI.getPacks(getState().packs.request);
         response && dispatch(setCardPacks(response.cardPacks));
+    } catch (e: any) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        console.log(error);
+        console.log('Error: ', {...e});
+    } finally {
+        dispatch(setLoading({isLoading: false}));
+    }
+}
+
+export const addNewPack = (cardsPack: PostCardsPackRequestType) => async (dispatch: Dispatch<any>) => {
+    try {
+        dispatch(setLoading({isLoading: true}));
+        await packsAPI.addNewPack(cardsPack);
+        dispatch(getPacks());
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error

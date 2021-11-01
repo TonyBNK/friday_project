@@ -83,7 +83,7 @@ export type ProfileResponseType = {
 }
 
 // Pack types
-export type CardPackType = {
+export type CardsPackType = {
     _id: string
     user_id: string
     name: string
@@ -98,7 +98,7 @@ export type CardPackType = {
     __v: number
 }
 
-export type GetCardPackRequestType = {
+export type GetCardsPackRequestType = {
     packName?: string
     min?: number
     max?: number
@@ -108,8 +108,8 @@ export type GetCardPackRequestType = {
     user_id?: string
 }
 
-export type GetCardPackResponseType = {
-    cardPacks: Array<CardPackType>
+export type GetCardsPackResponseType = {
+    cardPacks: Array<CardsPackType>
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
@@ -117,7 +117,21 @@ export type GetCardPackResponseType = {
     pageCount: number
 }
 
-export type GetCardPackStateType = {
-    request: GetCardPackRequestType
-    response: GetCardPackResponseType
+export type GetCardsPackStateType = {
+    request: GetCardsPackRequestType
+    response: GetCardsPackResponseType
+}
+
+export type PostCardsPackRequestType = {
+    cardsPack: {
+        name?: string
+        path?: string
+        grade?: number
+        shots?: number
+        rating?: number
+        deckCover?: string
+        private?: boolean
+        type?: string
+    }
+
 }

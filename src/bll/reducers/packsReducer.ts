@@ -1,12 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {
-    CardPackType,
-    GetCardPackRequestType,
-    GetCardPackStateType
+    CardsPackType,
+    GetCardsPackRequestType,
+    GetCardsPackStateType
 } from "../../types/types";
 
 
-const initialState: GetCardPackStateType = {
+const initialState: GetCardsPackStateType = {
     request: {
         packName: undefined,
         min: undefined,
@@ -45,12 +45,13 @@ const packsSlice = createSlice({
     name: 'packs',
     initialState: initialState,
     reducers: {
-        setCardPacks(state, action: PayloadAction<Array<CardPackType>>) {
+        setRequestParams(state, action: PayloadAction<GetCardsPackRequestType>){
+            state.request = action.payload;
+        },
+        setCardPacks(state, action: PayloadAction<Array<CardsPackType>>) {
             state.response.cardPacks = action.payload;
         },
-        setRequestParams(state, action: PayloadAction<GetCardPackRequestType>){
-            state.request = action.payload;
-        }
+
     }
 });
 

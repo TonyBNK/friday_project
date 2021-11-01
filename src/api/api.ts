@@ -7,8 +7,8 @@ import {
     RegisterRequestType,
     RegisterResponseType,
     LogoutResponseType,
-    GetCardPackResponseType,
-    GetCardPackRequestType
+    GetCardsPackResponseType,
+    GetCardsPackRequestType, CardsPackType, PostCardsPackRequestType
 } from "../types/types";
 
 
@@ -60,13 +60,18 @@ password recovery link: <a href='http://localhost:3000/friday_project#/password_
 };
 
 export const packsAPI = {
-    getPacks: async (paramsPayload: GetCardPackRequestType) => {
+    getPacks: async (paramsPayload: GetCardsPackRequestType) => {
         const response = await axiosInst
-            .get<GetCardPackRequestType, AxiosResponse<GetCardPackResponseType>>('http://localhost:7542/2.0/cards/pack', {
+            .get<GetCardsPackRequestType, AxiosResponse<GetCardsPackResponseType>>('http://localhost:7542/2.0/cards/pack', {
                 params: {
                     ...paramsPayload
                 }
             });
         return response.data;
     },
+    addNewPack: async (cardsPack: PostCardsPackRequestType) => {
+        const response = await axiosInst
+            .post('http://localhost:7542/2.0/cards/pack', cardsPack);
+        return response.data;
+    }
 }

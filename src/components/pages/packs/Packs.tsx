@@ -2,11 +2,11 @@ import React, {useEffect, useState} from "react";
 import c from "./Packs.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    CardPackType,
-    GetCardPackRequestType,
+    CardsPackType,
+    GetCardsPackRequestType,
     RootStateType
 } from "../../../types/types";
-import {getPacks} from "../../../bll/thunks/thunks";
+import {addNewPack, getPacks} from "../../../bll/thunks/thunks";
 import {setRequestParams} from "../../../bll/reducers/packsReducer";
 
 
@@ -17,13 +17,13 @@ export const Packs = () => {
         dispatch(getPacks());
     }, []);
 
-    const cardPacks = useSelector<RootStateType, Array<CardPackType>>(
+    const cardPacks = useSelector<RootStateType, Array<CardsPackType>>(
         state => state.packs.response.cardPacks
     );
     const myId = useSelector<RootStateType, string | undefined>(
         state => state.profile._id
     );
-    const [params, setParams] = useState<GetCardPackRequestType>({});
+    const [params, setParams] = useState<GetCardsPackRequestType>({});
 
     const onMyClick = () => {
         dispatch(setRequestParams({...params, user_id: myId}));
@@ -33,13 +33,16 @@ export const Packs = () => {
         dispatch(setRequestParams({...params, user_id: undefined}));
         dispatch(getPacks());
     }
+    const onAddNewPackClick = () => {
+        dispatch(addNewPack({cardsPack: {}}));
+    }
 
     return (
         <div className={c.packsContainer}>
             <div className={c.buttonContainer}>
                 <button onClick={onMyClick}>My</button>
                 <button onClick={onAllClick}>All</button>
-                <button>Add new pack</button>
+                <button onClick={onAddNewPackClick}>Add new pack</button>
             </div>
             <div className={c.tableContainer}>
                 <h2>Packs list</h2>
