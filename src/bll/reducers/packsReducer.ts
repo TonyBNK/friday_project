@@ -50,8 +50,7 @@ const packsSlice = createSlice({
         },
         setCardPacks(state, action: PayloadAction<Array<PackType>>) {
             state.response.cardPacks = action.payload;
-        },
-
+        }
     }
 });
 
