@@ -15,6 +15,7 @@ import {
 import {setRequestParams} from "../../../bll/reducers/packsReducer";
 import { NavLink } from "react-router-dom";
 import {PATH} from "../Routes";
+import {Spin} from "antd";
 
 
 export const Packs = () => {
@@ -30,6 +31,9 @@ export const Packs = () => {
     const myId = useSelector<RootStateType, string | undefined>(
         state => state.profile._id
     );
+    const isLoading = useSelector<RootStateType, boolean>(
+        state => state.app.isLoading
+    );
     const [params, setParams] = useState<GetPacksRequestType>({});
 
     const onMyClick = () => {
@@ -42,6 +46,17 @@ export const Packs = () => {
     }
     const onAddNewPackClick = () => {
         dispatch(addNewPack({cardsPack: {}}));
+    }
+
+    if (isLoading) {
+        return <div style={{
+            position: 'fixed',
+            width: '100%',
+            top: '30%',
+            textAlign: 'center'
+        }}>
+            <Spin size={"large"}/>
+        </div>
     }
 
     return (

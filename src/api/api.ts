@@ -11,7 +11,10 @@ import {
     GetPacksRequestType,
     PackType,
     PostPackRequestType,
-    PutPackRequestType, GetCardsRequestType, GetCardsResponseType
+    PutPackRequestType,
+    GetCardsRequestType,
+    GetCardsResponseType,
+    PostCardRequestType
 } from "../types/types";
 
 
@@ -99,5 +102,9 @@ export const cardsAPI = {
                 }
             });
         return response.data;
+    },
+    addNewCard: async (card: PostCardRequestType) => {
+        await axiosInst
+            .post('http://localhost:7542/2.0/cards/card', card);
     },
 }

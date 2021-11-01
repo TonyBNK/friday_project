@@ -190,3 +190,19 @@ export type GetCardsStateType = {
     request: GetCardsRequestType
     response: GetCardsResponseType
 }
+
+export type PostCardRequestType = {
+    card: {
+        cardsPack_id: string
+        question?: string
+        answer?: string
+        grade?: number
+        shots?: number
+        rating?: number
+        answerImg?: string
+        questionImg?: string
+        questionVideo?: string
+        answerVideo?: string
+        type?: string
+    }
+}

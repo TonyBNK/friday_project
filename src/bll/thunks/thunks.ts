@@ -2,7 +2,7 @@ import {Dispatch} from "redux";
 import {setLogged} from "../reducers/loginReducer";
 import {authAPI, cardsAPI, packsAPI} from "../../api/api";
 import {
-    LoginRequestType,
+    LoginRequestType, PostCardRequestType,
     PostPackRequestType,
     PutPackRequestType,
     RegisterRequestType
@@ -168,10 +168,24 @@ export const updatePack = (cardsPack: PutPackRequestType) => async (dispatch: Di
 export const getCards = (cardsPackId: string) => async (dispatch: Dispatch<any>, getState: Function) => {
     try {
         dispatch(setLoading({isLoading: true}));
-        const currState = getState();
-        debugger;
         const response = await cardsAPI.getCards({...getState().packs.request, cardsPack_id: cardsPackId});
         response && dispatch(setCards(response.cards));
+    } catch (e: any) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        console.log(error);
+        console.log('Error: ', {...e});
+    } finally {
+        dispatch(setLoading({isLoading: false}));
+    }
+}
+
+export const addNewCard = (card: PostCardRequestType) => async (dispatch: Dispatch<any>) => {
+    try {
+        dispatch(setLoading({isLoading: true}));
+        await cardsAPI.addNewCard(card);
+        dispatch(getCards(card.card.cardsPack_id));
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error

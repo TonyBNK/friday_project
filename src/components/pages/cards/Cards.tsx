@@ -2,14 +2,19 @@ import React, {useEffect} from "react";
 import c from "./Cards.module.scss";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {RootStateType} from "../../../types/types";
-import {getCards} from "../../../bll/thunks/thunks";
+import {CardType, RootStateType} from "../../../types/types";
+import {addNewCard, addNewPack, getCards} from "../../../bll/thunks/thunks";
+import {Spin} from "antd";
 
 
 export const Cards = () => {
     const {packId} = useParams<{ packId: string }>();
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getCards(packId));
+    }, []);
 
     const packName = useSelector<RootStateType, string>(
         state => {
@@ -18,16 +23,36 @@ export const Cards = () => {
             })
             return currPack ? currPack.name : 'Pack 1'
         }
-    )
+    );
+    const cards = useSelector<RootStateType, Array<CardType>>(
+        state => state.cards.response.cards
+    );
+    const isLoading = useSelector<RootStateType, boolean>(
+        state => state.app.isLoading
+    );
+    const myId = useSelector<RootStateType, string | undefined>(
+        state => state.profile._id
+    );
 
-    useEffect(() => {
-        dispatch(getCards(packId));
-    }, []);
+    const onAddNewCardClick = () => {
+        dispatch(addNewCard({card: {cardsPack_id: packId}}));
+    }
+
+    if (isLoading) {
+        return <div style={{
+            position: 'fixed',
+            width: '100%',
+            top: '30%',
+            textAlign: 'center'
+        }}>
+            <Spin size={"large"}/>
+        </div>
+    }
 
     return (
         <div className={c.cardsContainer}>
             <div className={c.buttonContainer}>
-                <button>Add new card</button>
+                <button onClick={onAddNewCardClick}>Add new card</button>
             </div>
             <div className={c.tableContainer}>
                 <h2>{packName}</h2>
@@ -38,49 +63,44 @@ export const Cards = () => {
                         <th>Answer</th>
                         <th>Last Updated</th>
                         <th>Grade</th>
+                        <th>Actions</th>
                     </tr>
-                    {/*{*/}
-                    {/*    cardPacks.map(pack => {*/}
-                    {/*        const onDeleteClick = () => {*/}
-                    {/*            dispatch(deletePack(pack._id));*/}
-                    {/*        }*/}
-                    {/*        const onEditClick = () => {*/}
-                    {/*            dispatch(updatePack({*/}
-                    {/*                cardsPack: {*/}
-                    {/*                    ...cardPacks,*/}
-                    {/*                    _id: pack._id,*/}
-                    {/*                    name: 'no named pack'*/}
-                    {/*                }*/}
-                    {/*            }));*/}
-                    {/*        }*/}
+                    {
+                        cards.map(card => {
+                            const onDeleteClick = () => {
 
-                    {/*        return <tr key={pack._id}>*/}
-                    {/*            <td>{pack.name}</td>*/}
-                    {/*            <td>{pack.cardsCount}</td>*/}
-                    {/*            <td>{pack.updated}</td>*/}
-                    {/*            <td>{pack.created}</td>*/}
-                    {/*            <td>*/}
-                    {/*                {*/}
-                    {/*                    pack.user_id === myId*/}
-                    {/*                        ? <>*/}
-                    {/*                            <button onClick={onDeleteClick}>*/}
-                    {/*                                Delete*/}
-                    {/*                            </button>*/}
-                    {/*                            <button onClick={onEditClick}>*/}
-                    {/*                                Edit*/}
-                    {/*                            </button>*/}
-                    {/*                            <button>*/}
-                    {/*                                Learn*/}
-                    {/*                            </button>*/}
-                    {/*                        </>*/}
-                    {/*                        : <button>*/}
-                    {/*                            Learn*/}
-                    {/*                        </button>*/}
-                    {/*                }*/}
-                    {/*            </td>*/}
-                    {/*        </tr>*/}
-                    {/*    })*/}
-                    {/*}*/}
+                            }
+                            const onEditClick = () => {
+
+                            }
+
+                            return <tr key={card._id}>
+                                <td>{card.question}</td>
+                                <td>{card.answer}</td>
+                                <td>{card.updated}</td>
+                                <td>{card.grade}</td>
+                                <td>
+                                    {
+                                        card.user_id === myId
+                                            ? <>
+                                                <button onClick={onDeleteClick}>
+                                                    Delete
+                                                </button>
+                                                <button onClick={onEditClick}>
+                                                    Edit
+                                                </button>
+                                                <button>
+                                                    Learn
+                                                </button>
+                                            </>
+                                            : <button>
+                                                Learn
+                                            </button>
+                                    }
+                                </td>
+                            </tr>
+                        })
+                    }
                     </tbody>
                 </table>
             </div>
