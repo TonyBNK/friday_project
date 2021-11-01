@@ -119,15 +119,17 @@ export const Login = () => {
                         ? (<div style={{color: 'red'}}>{formik.errors.password}</div>)
                         : null
                 }
-                <Checkbox
+                <div className={c.buttonContainer}>
+                    <Checkbox
                     id={'rememberMe'}
                     {...formik.getFieldProps('')}
                 >
                     Remember me
                 </Checkbox>
-                <Button htmlType={'submit'} disabled={isButtonDisabled}>
-                    Login
-                </Button>
+                    <Button htmlType={'submit'} disabled={isButtonDisabled}>
+                        Login
+                    </Button>
+                </div>
             </form>
         </div>
     )

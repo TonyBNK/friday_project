@@ -87,9 +87,11 @@ export const PasswordRecovery = () => {
                             style={{color: 'red'}}>{formik.errors.email}</div>
                         : null
                 }
-                <Button disabled={isButtonDisabled} htmlType={'submit'}>
-                    Send instructions
-                </Button>
+                <div className={c.buttonContainer}>
+                    <Button disabled={isButtonDisabled} htmlType={'submit'}>
+                        Send instructions
+                    </Button>
+                </div>
             </form>
         </div>
     )
