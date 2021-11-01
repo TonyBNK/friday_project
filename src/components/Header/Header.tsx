@@ -38,6 +38,10 @@ export const Header: React.FC<HeaderPropsType> = (
             <NavLink to={PATH.ENTER_NEW_PASSWORD}
                      activeClassName={c.active}>Enter new
                 password</NavLink>
+            <NavLink to={PATH.PACKS}
+                     activeClassName={c.active}>Packs</NavLink>
+            <NavLink to={PATH.CARDS}
+                     activeClassName={c.active}>Cards</NavLink>
             {
                 isLogged
                 && <NavLink to={PATH.LOGIN}

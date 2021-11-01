@@ -7,6 +7,8 @@ import {PasswordRecovery} from "./password-recovery/PasswordRecovery";
 import {EnterNewPassword} from "./enter-new-password/EnterNewPassword";
 import React from "react";
 import {Test} from "./test/Test";
+import {Packs} from "./packs/Packs";
+import {Cards} from "./cards/Cards";
 
 
 export const PATH = {
@@ -15,7 +17,9 @@ export const PATH = {
     REGISTRATION: '/registration',
     PROFILE: '/profile',
     PASSWORD_RECOVERY: '/password_recovery',
-    ENTER_NEW_PASSWORD: '/enter_new_password'
+    ENTER_NEW_PASSWORD: '/enter_new_password',
+    PACKS: '/packs',
+    CARDS: '/cards'
 }
 
 export const Routes = () => {
@@ -30,6 +34,8 @@ export const Routes = () => {
                 <Route path={PATH.PROFILE} render={() => <Profile/>}/>
                 <Route path={PATH.PASSWORD_RECOVERY} render={() => <PasswordRecovery/>}/>
                 <Route path={PATH.ENTER_NEW_PASSWORD} render={() => <EnterNewPassword/>}/>
+                <Route path={PATH.PACKS} render={() => <Packs/>}/>
+                <Route path={PATH.CARDS} render={() => <Cards/>}/>
 
                 <Route render={() => <Error404/>}/>
             </Switch>

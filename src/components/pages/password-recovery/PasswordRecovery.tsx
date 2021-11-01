@@ -71,15 +71,15 @@ export const PasswordRecovery = () => {
         <div className={c.pasRecContainer}>
             <h2>Forgot your password?</h2>
             <form onSubmit={formik.handleSubmit}>
-                <label htmlFor="">
-                    <Input
+                <label>
+                    Enter your email address and we will send you further
+                    instructions
+                    <input
                         id="email"
                         type="text"
                         style={emailError ? errorStyle : undefined}
                         {...formik.getFieldProps('email')}
                     />
-                    Enter your email address and we will send you further
-                    instructions
                 </label>
                 {
                     emailError
@@ -88,9 +88,9 @@ export const PasswordRecovery = () => {
                         : null
                 }
                 <div className={c.buttonContainer}>
-                    <Button disabled={isButtonDisabled} htmlType={'submit'}>
+                    <button disabled={isButtonDisabled} type={'submit'}>
                         Send instructions
-                    </Button>
+                    </button>
                 </div>
             </form>
         </div>

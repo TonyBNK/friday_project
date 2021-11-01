@@ -93,7 +93,7 @@ export const Login = () => {
             <form onSubmit={formik.handleSubmit}>
                 <label>
                     Email
-                    <Input
+                    <input
                         id='email'
                         type="text"
                         style={emailError ? errorStyle : undefined}
@@ -107,7 +107,7 @@ export const Login = () => {
                 }
                 <label>
                     Password
-                    <Input
+                    <input
                         id={'password'}
                         type="password"
                         style={passwordError ? errorStyle : undefined}
@@ -116,19 +116,21 @@ export const Login = () => {
                 </label>
                 {
                     formik.touched.password && formik.errors.password
-                        ? (<div style={{color: 'red'}}>{formik.errors.password}</div>)
+                        ? (<div
+                            style={{color: 'red'}}>{formik.errors.password}</div>)
                         : null
                 }
                 <div className={c.buttonContainer}>
-                    <Checkbox
-                    id={'rememberMe'}
-                    {...formik.getFieldProps('')}
-                >
-                    Remember me
-                </Checkbox>
-                    <Button htmlType={'submit'} disabled={isButtonDisabled}>
+                    <label>
+                        Remember me
+                        <input
+                            type="checkbox"
+                            id={'rememberMe'}
+                            {...formik.getFieldProps('')}/>
+                    </label>
+                    <button type={'submit'} disabled={isButtonDisabled}>
                         Login
-                    </Button>
+                    </button>
                 </div>
             </form>
         </div>

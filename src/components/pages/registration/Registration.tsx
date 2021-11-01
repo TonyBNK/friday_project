@@ -108,7 +108,7 @@ export const Registration = () => {
             <form onSubmit={formik.handleSubmit}>
                 <label>
                     Email
-                    <Input
+                    <input
                         id='email'
                         type="text"
                         style={emailError ? errorStyle : undefined}
@@ -123,7 +123,7 @@ export const Registration = () => {
                 }
                 <label>
                     Password
-                    <Input
+                    <input
                         id='password'
                         type="password"
                         style={passwordError ? errorStyle : undefined}
@@ -138,7 +138,7 @@ export const Registration = () => {
                 }
                 <label>
                     Confirm password
-                    <Input
+                    <input
                         id='confirmPassword'
                         type="password"
                         style={confirmPasswordError ? errorStyle : undefined}
@@ -152,12 +152,12 @@ export const Registration = () => {
                         : null
                 }
                 <div className={c.buttonContainer}>
-                    <Button onClick={onCancelClick}>
+                    <button onClick={onCancelClick}>
                         Cancel
-                    </Button>
-                    <Button htmlType='submit' disabled={isButtonDisabled}>
+                    </button>
+                    <button type='submit' disabled={isButtonDisabled}>
                         Register
-                    </Button>
+                    </button>
                 </div>
             </form>
         </div>
