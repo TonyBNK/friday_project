@@ -50,6 +50,7 @@ export const Paginator: React.FC<PaginatorPropsType> = React.memo((
 
         return (
             <span
+                key={p}
                 className={page === p ? c.pageSelected : ''}
                 onClick={onChangeCurrentPageHandler}
                 style={{margin: '0 5px', cursor: 'pointer'}}
