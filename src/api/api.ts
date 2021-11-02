@@ -1,38 +1,39 @@
 import axios, {AxiosResponse} from "axios";
 import {
-    LoginRequestType,
-    ProfileResponseType,
-    PasswordRecoveryRequestType,
-    PasswordRecoveryResponseType,
-    RegisterRequestType,
-    RegisterResponseType,
-    LogoutResponseType,
-    GetPacksResponseType,
-    GetPacksRequestType,
-    PackType,
-    PostPackRequestType,
-    PutPackRequestType,
     GetCardsRequestType,
     GetCardsResponseType,
-    PostCardRequestType, PutCardRequestType
+    GetPacksRequestType,
+    GetPacksResponseType,
+    LoginRequestType,
+    LogoutResponseType,
+    PasswordRecoveryRequestType,
+    PasswordRecoveryResponseType,
+    PostCardRequestType,
+    PostPackRequestType,
+    ProfileResponseType,
+    PutCardRequestType,
+    PutPackRequestType,
+    RegisterRequestType,
+    RegisterResponseType
 } from "../types/types";
 
 
 const axiosInst = axios.create({
-    // baseURL: "http://localhost:7542/2.0",
+    // baseURL: "http://localhost:7542/2.0/",
+    baseURL: 'https://neko-back.herokuapp.com/2.0/',
     withCredentials: true
 });
 
 export const authAPI = {
     me: async () => {
         const response = await axiosInst
-            .post<{}, AxiosResponse<ProfileResponseType>>('http://localhost:7542/2.0/auth/me', {});
+            .post<{}, AxiosResponse<ProfileResponseType>>('auth/me', {});
         return response.data;
     },
     logIn: async (loginData: LoginRequestType) => {
         const response = await axiosInst
             .post<LoginRequestType, AxiosResponse<ProfileResponseType>>(
-                'http://localhost:7542/2.0/auth/login', {
+                'auth/login', {
                     ...loginData
                 }
             );
@@ -41,20 +42,20 @@ export const authAPI = {
     logOut: async () => {
         const response = await axiosInst
             .delete<LoginRequestType, AxiosResponse<LogoutResponseType>>(
-                'http://localhost:7542/2.0/auth/me'
+                'auth/me'
             );
         return response.data;
     },
     register: async (registerData: RegisterRequestType) => {
         const response = await axiosInst
-            .post<RegisterRequestType, AxiosResponse<RegisterResponseType>>('http://localhost:7542/2.0/auth/register', {
+            .post<RegisterRequestType, AxiosResponse<RegisterResponseType>>('auth/register', {
                 ...registerData
             });
         return response.data;
     },
     recoverPassword: async (email: string) => {
         const response = await axiosInst
-            .post<PasswordRecoveryRequestType, AxiosResponse<PasswordRecoveryResponseType>>('https://neko-back.herokuapp.com/2.0/auth/forgot', {
+            .post<PasswordRecoveryRequestType, AxiosResponse<PasswordRecoveryResponseType>>('auth/forgot', {
                 email,
                 from: 'test-front-admin <borisenk-anton@yandex.ru>',
                 message: `<div style="background-color: lime; padding: 15px">
@@ -68,7 +69,7 @@ password recovery link: <a href='http://localhost:3000/friday_project#/password_
 export const packsAPI = {
     getPacks: async (paramsPayload: GetPacksRequestType) => {
         const response = await axiosInst
-            .get<GetPacksRequestType, AxiosResponse<GetPacksResponseType>>('http://localhost:7542/2.0/cards/pack', {
+            .get<GetPacksRequestType, AxiosResponse<GetPacksResponseType>>('cards/pack', {
                 params: {
                     ...paramsPayload
                 }
@@ -77,11 +78,11 @@ export const packsAPI = {
     },
     addNewPack: async (cardsPack: PostPackRequestType) => {
         await axiosInst
-            .post('http://localhost:7542/2.0/cards/pack', cardsPack);
+            .post('cards/pack', cardsPack);
     },
     deletePack: async (cardsPackId: string) => {
         await axiosInst
-            .delete('http://localhost:7542/2.0/cards/pack', {
+            .delete('cards/pack', {
                 params: {
                     id: cardsPackId
                 }
@@ -89,14 +90,14 @@ export const packsAPI = {
     },
     updatePack: async (cardsPack: PutPackRequestType) => {
         await axiosInst
-            .put('http://localhost:7542/2.0/cards/pack', cardsPack);
+            .put('cards/pack', cardsPack);
     },
 }
 
 export const cardsAPI = {
     getCards: async (paramsPayload: GetCardsRequestType) => {
         const response = await axiosInst
-            .get<GetCardsRequestType, AxiosResponse<GetCardsResponseType>>('http://localhost:7542/2.0/cards/card', {
+            .get<GetCardsRequestType, AxiosResponse<GetCardsResponseType>>('cards/card', {
                 params: {
                     ...paramsPayload
                 }
@@ -105,11 +106,11 @@ export const cardsAPI = {
     },
     addNewCard: async (card: PostCardRequestType) => {
         await axiosInst
-            .post('http://localhost:7542/2.0/cards/card', card);
+            .post('cards/card', card);
     },
     deleteCard: async (cardId: string) => {
         await axiosInst
-            .delete('http://localhost:7542/2.0/cards/card', {
+            .delete('cards/card', {
                 params: {
                     id: cardId
                 }
@@ -117,6 +118,6 @@ export const cardsAPI = {
     },
     updateCard: async (card: PutCardRequestType) => {
         await axiosInst
-            .put('http://localhost:7542/2.0/cards/card', card);
+            .put('cards/card', card);
     },
 }
