@@ -19,7 +19,7 @@ export const PATH = {
     PASSWORD_RECOVERY: '/password_recovery',
     ENTER_NEW_PASSWORD: '/enter_new_password',
     PACKS: '/packs',
-    CARDS: '/cards/:packId?'
+    CARDS: '/cards/:packId/:packName'
 }
 
 export const Routes = () => {

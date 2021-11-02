@@ -144,7 +144,7 @@ export const Packs = () => {
 
                                 return <tr key={pack._id}>
                                     <td>
-                                        <NavLink to={'/cards/' + pack._id}>
+                                        <NavLink to={'/cards/' + pack._id + '/' + pack.name}>
                                             {pack.name}
                                         </NavLink>
                                     </td>

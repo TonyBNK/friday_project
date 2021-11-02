@@ -169,7 +169,7 @@ export const updatePack = (cardsPack: PutPackRequestType) => async (dispatch: Di
 export const getCards = (cardsPackId: string) => async (dispatch: Dispatch<any>, getState: Function) => {
     try {
         dispatch(setLoading({isLoading: true}));
-        const response = await cardsAPI.getCards({...getState().packs.request, cardsPack_id: cardsPackId});
+        const response = await cardsAPI.getCards({...getState().cards.request, cardsPack_id: cardsPackId});
         response && dispatch(setCards(response));
     } catch (e: any) {
         const error = e.response

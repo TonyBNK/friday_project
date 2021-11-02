@@ -19,7 +19,7 @@ import {setRequestParams} from "../../../bll/reducers/cardsReducer";
 
 
 export const Cards = () => {
-    const {packId} = useParams<{ packId: string }>();
+    const {packId, packName} = useParams<{ packId: string, packName: string }>();
 
     const dispatch = useDispatch();
 
@@ -27,14 +27,7 @@ export const Cards = () => {
         dispatch(getCards(packId));
     }, []);
 
-    const packName = useSelector<RootStateType, string>(
-        state => {
-            const currPack = state.packs.response.cardPacks.find(pack => {
-                return pack._id === packId
-            })
-            return currPack ? currPack.name : 'Pack 1'
-        }
-    );
+
     const {
         cards,
         cardsTotalCount,
