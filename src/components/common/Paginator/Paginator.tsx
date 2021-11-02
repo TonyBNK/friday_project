@@ -1,7 +1,5 @@
 import React, {ChangeEvent, useState} from "react";
 import c from "./Paginator.module.scss";
-import {useSelector} from "react-redux";
-import {RootStateType} from "../../../types/types";
 
 
 type PaginatorPropsType = {
@@ -32,10 +30,6 @@ export const Paginator: React.FC<PaginatorPropsType> = React.memo((
     const [portionNumber, setPortionNumber] = useState(1);
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     const rightPortionPageNumber = portionNumber * portionSize;
-
-    const pageCountValue = useSelector<RootStateType, number | undefined>(
-        state => state.packs.request.pageCount
-    )
 
     const onPreviousClick = () => {
         setPortionNumber(portionNumber - 1);
@@ -82,7 +76,7 @@ export const Paginator: React.FC<PaginatorPropsType> = React.memo((
                 <select
                     name="countOfItems"
                     onChange={onChangePageCount}
-                    value={pageCountValue}
+                    value={pageCount}
                 >
                     <option value="5">5</option>
                     <option value="10">10</option>
