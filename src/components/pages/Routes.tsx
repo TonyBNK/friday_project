@@ -9,7 +9,7 @@ import React from "react";
 import {Test} from "./test/Test";
 import {Packs} from "./packs/Packs";
 import {Cards} from "./cards/Cards";
-import {Modal} from "../common/Modal/Modal";
+import {ModalsPage} from "./modals/ModalsPage";
 
 
 export const PATH = {
@@ -21,7 +21,7 @@ export const PATH = {
     ENTER_NEW_PASSWORD: '/enter_new_password',
     PACKS: '/packs',
     CARDS: '/cards/:packId/:packName',
-    MODAL: '/modal'
+    MODALS: '/modals'
 }
 
 export const Routes = () => {
@@ -38,7 +38,7 @@ export const Routes = () => {
                 <Route path={PATH.ENTER_NEW_PASSWORD} render={() => <EnterNewPassword/>}/>
                 <Route path={PATH.PACKS} render={() => <Packs/>}/>
                 <Route path={PATH.CARDS} render={() => <Cards/>}/>
-                <Route path={PATH.MODAL} render={() => <Modal/>}/>
+                <Route path={PATH.MODALS} render={() => <ModalsPage/>}/>
 
                 <Route render={() => <Error404/>}/>
             </Switch>
