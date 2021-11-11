@@ -1,6 +1,7 @@
-import React, {CSSProperties, ReactNode, useState} from 'react';
+import React, {ReactNode, useState} from 'react';
 import {InputData, InputMap} from "./InputMap";
 import {Modal} from "../Modal";
+import c from "./ModalInput.module.scss";
 
 
 type ModalInputType = {
@@ -10,19 +11,13 @@ type ModalInputType = {
     inputData?: Array<InputData>;
     answer?: string;
     setAnswer?: (answer: string) => void;
-
-    inputContainerStyles?: CSSProperties;
-    inputStyles?: CSSProperties;
-    buttonStyles?: CSSProperties;
     button?: ReactNode;
 
     enableBackground?: boolean;
-    backgroundStyle?: CSSProperties;
     backgroundOnClick?: () => void;
 
     width: number;
     height: number;
-    modalStyle?: CSSProperties;
     modalOnClick?: () => void;
 }
 
@@ -32,18 +27,13 @@ export const ModalInput: React.FC<ModalInputType> = (
         answer,
         setAnswer = (answer: string) => {},
 
-        inputContainerStyles,
-        inputStyles,
-        buttonStyles,
         button = 'OK',
 
         enableBackground,
-        backgroundStyle,
         backgroundOnClick = () => {},
 
         width,
         height,
-        modalStyle,
         modalOnClick = () => {},
 
         show,
@@ -57,7 +47,7 @@ export const ModalInput: React.FC<ModalInputType> = (
     const successCloseModal = () => {
         saveInputs.f();
         setAnswer(answerData || '');
-        setSaveInputs({f: () => {}}); // unsubscribe
+        setSaveInputs({f: () => {}});
         close();
     };
 
@@ -68,42 +58,28 @@ export const ModalInput: React.FC<ModalInputType> = (
                 setAnswerData(answer);
                 backgroundOnClick()
             }}
-            backgroundStyle={backgroundStyle}
 
             width={width}
             height={height}
             modalOnClick={modalOnClick}
-            modalStyle={modalStyle}
 
             show={show}
         >
             {children ? children : 'question Modal'}
-            <div
-                style={{
-                    width: '100%',
-                    display: 'flex',
-                    flexFlow: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'space-around',
-                    ...inputContainerStyles,
-                }}
-            >
+            <div className={c.modalInputContainer}>
                 {answer !== undefined && (
                     <input
                         value={answerData}
-                        style={{...inputStyles}}
                         onChange={e => setAnswerData(e.currentTarget.value)}
                     />
                 )}
                 <InputMap
                     inputData={inputData}
                     setSaveInputs={setSaveInputs}
-
-                    inputStyles={inputStyles}
                 />
 
             </div>
-            <button onClick={successCloseModal} style={{...buttonStyles}}>{button}</button>
+            <button onClick={successCloseModal}>{button}</button>
         </Modal>
     );
 };

@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {
     GetCardsRequestType,
-    GetCardsResponseType,
+    GetCardsResponseType, PostCardRequestType,
     RootStateType
 } from "../../../types/types";
 import {
@@ -16,17 +16,22 @@ import {
 import {Spin} from "antd";
 import {Paginator} from "../../common/Paginator/Paginator";
 import {setRequestParams} from "../../../bll/reducers/cardsReducer";
+import {Card} from "./card/Card";
+import {ModalInputContainer} from "../../common/Modal/input/ModalInputContainer";
+import {ModalInput} from "../../common/Modal/input/ModalInput";
 
 
 export const Cards = () => {
-    const {packId, packName} = useParams<{ packId: string, packName: string }>();
+    const {
+        packId,
+        packName
+    } = useParams<{ packId: string, packName: string }>();
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getCards(packId));
     }, []);
-
 
     const {
         cards,
@@ -49,16 +54,23 @@ export const Cards = () => {
         state => state.cards.request
     );
 
-    const [cardQuestion, setCardQuestion] = useState<string>('');
+    const [searchQuestion, setSearchQuestion] = useState<string>('');
+    const [editMode, setEditMode] = useState<boolean>(false);
+
+    const [question, setQuestion] = useState<string>('');
+    const [answer, setAnswer] = useState<string>('');
 
     const onAddNewCardClick = () => {
-        dispatch(addNewCard({card: {cardsPack_id: packId}}));
+        setEditMode(true);
+
+        // alert(`question: ${cardData.card.question}, answer: ${cardData.card.answer}`);
+        // dispatch(addNewCard({card: {cardsPack_id: packId}}));
     }
     const onChangeInputSearch = (e: ChangeEvent<HTMLInputElement>) => {
-        setCardQuestion(e.currentTarget.value);
+        setSearchQuestion(e.currentTarget.value);
     }
     const onSearchClick = () => {
-        dispatch(setRequestParams({...params, cardQuestion: cardQuestion}));
+        dispatch(setRequestParams({...params, cardQuestion: searchQuestion}));
         dispatch(getCards(packId))
     }
     const onChangePageCount = (pageCount: number) => {
@@ -91,6 +103,17 @@ export const Cards = () => {
 
     return (
         <div className={c.cardsContainer}>
+            <ModalInput
+                show={editMode}
+                close={() => setEditMode(false)}
+                inputData={[[question, setQuestion], [answer, setAnswer]]}
+                enableBackground={true}
+                backgroundOnClick={() => setEditMode(false)}
+                height={200}
+                width={300}
+            button={'Add'}>
+                Add new Card
+            </ModalInput>
             <div className={c.titleContainer}>
                 <h2>{packName}</h2>
                 <input
@@ -127,41 +150,28 @@ export const Cards = () => {
                                     dispatch(deleteCard(card._id, card.cardsPack_id));
                                 }
                                 const onEditClick = () => {
-                                    dispatch(updateCard({
-                                        card: {
-                                            ...cards,
-                                            cardsPack_id: card.cardsPack_id,
-                                            _id: card._id,
-                                            question: 'How are you?'
-                                        }
-                                    }));
-                                }
+                                    // dispatch(updateCard({
+                                    //     card: {
+                                    //         ...cards,
+                                    //         cardsPack_id: card.cardsPack_id,
+                                    //         _id: card._id,
+                                    //         question: 'How are you?'
+                                    //     }
+                                    // }));
 
-                                return <tr key={card._id}>
-                                    <td>{card.question}</td>
-                                    <td>{card.answer}</td>
-                                    <td>{new Date(card.updated).toLocaleDateString()}</td>
-                                    <td>{card.grade}</td>
-                                    <td>
-                                        {
-                                            card.user_id === myId
-                                                ? <>
-                                                    <button onClick={onDeleteClick}>
-                                                        Delete
-                                                    </button>
-                                                    <button onClick={onEditClick}>
-                                                        Edit
-                                                    </button>
-                                                    <button>
-                                                        Learn
-                                                    </button>
-                                                </>
-                                                : <button>
-                                                    Learn
-                                                </button>
-                                        }
-                                    </td>
-                                </tr>
+                                    alert('Edited');
+                                }
+                                return <Card
+                                    user_id={card.user_id}
+                                    myId={myId}
+                                    _id={card._id}
+                                    question={card.question}
+                                    answer={card.answer}
+                                    updated={new Date(card.updated).toLocaleDateString()}
+                                    grade={card.grade}
+                                    onDeleteClick={onDeleteClick}
+                                    onEditClick={onEditClick}
+                                />
                             })
                         }
                         </tbody>
