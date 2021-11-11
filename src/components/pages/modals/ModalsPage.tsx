@@ -3,6 +3,7 @@ import {ModalContainer} from "../../common/Modal/ModalContainer";
 import {ModalInputContainer} from "../../common/Modal/input/ModalInputContainer";
 import {ModalMessageContainer} from "../../common/Modal/message/ModalMessageContainer";
 import {ModalMessageStackContainer} from "../../common/Modal/message/ModalMessageStackContainer";
+import {ModalQuestionContainer} from "../../common/Modal/question/ModalQuestionContainer";
 
 
 export const ModalsPage = () => {
@@ -18,7 +19,7 @@ export const ModalsPage = () => {
           <div style={{height: '40vh'}}/>
 
           <ModalContainer/>
-          {/*<ModalQuestionContainer/>*/}
+          <ModalQuestionContainer/>
           <ModalInputContainer/>
           <ModalMessageContainer/>
           <ModalMessageStackContainer/>
