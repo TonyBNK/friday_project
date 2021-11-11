@@ -60,11 +60,12 @@ export const Cards = () => {
     const [question, setQuestion] = useState<string>('');
     const [answer, setAnswer] = useState<string>('');
 
+    const confirm = (question: string, answer: string) => {
+        dispatch(addNewCard({card: {cardsPack_id: packId, question, answer}}));
+    }
+
     const onAddNewCardClick = () => {
         setEditMode(true);
-
-        // alert(`question: ${cardData.card.question}, answer: ${cardData.card.answer}`);
-        // dispatch(addNewCard({card: {cardsPack_id: packId}}));
     }
     const onChangeInputSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchQuestion(e.currentTarget.value);
@@ -111,7 +112,9 @@ export const Cards = () => {
                 backgroundOnClick={() => setEditMode(false)}
                 height={200}
                 width={300}
-            button={'Add'}>
+                button={'Add'}
+                confirm={confirm}
+            >
                 Add new Card
             </ModalInput>
             <div className={c.titleContainer}>

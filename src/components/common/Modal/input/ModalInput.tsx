@@ -19,6 +19,8 @@ type ModalInputType = {
     width: number;
     height: number;
     modalOnClick?: () => void;
+
+    confirm: (question: string, answer: string) => void
 }
 
 export const ModalInput: React.FC<ModalInputType> = (
@@ -39,6 +41,8 @@ export const ModalInput: React.FC<ModalInputType> = (
         show,
         close,
         children,
+
+        confirm
     }
 ) => {
     const [answerData, setAnswerData] = useState(answer);
@@ -76,8 +80,8 @@ export const ModalInput: React.FC<ModalInputType> = (
                 <InputMap
                     inputData={inputData}
                     setSaveInputs={setSaveInputs}
+                    confirm={confirm}
                 />
-
             </div>
             <button onClick={successCloseModal}>{button}</button>
         </Modal>

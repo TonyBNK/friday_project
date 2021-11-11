@@ -1,28 +1,28 @@
-import React, {CSSProperties, useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 
 export type InputData = [string, (value: string) => void];
 
 type InputMapType = {
     inputData?: InputData[];
     setSaveInputs: (fObject: { f: () => void }) => void
-
-    inputStyles?: CSSProperties;
+    confirm: (question: string, answer: string) => void
 }
 
 export const InputMap: React.FC<InputMapType> = (
     {
         inputData,
         setSaveInputs,
-
-        inputStyles,
+        confirm
     }
 ) => {
     const defAnswersData = useMemo(() => {
-        return inputData ? inputData.map((iD, i) => ({
-            id: i,
-            value: iD[0],
-            setValue: iD[1]
-        })) : [];
+        return inputData
+            ? inputData.map((iD, i) => ({
+                id: i,
+                value: iD[0],
+                setValue: iD[1]
+            }))
+            : [];
     }, []);
     const [modalInputData, setModalInputData] = useState(defAnswersData);
 
@@ -37,7 +37,10 @@ export const InputMap: React.FC<InputMapType> = (
     }, [modalInputData]);
 
     const successCloseModal = () => {
-        for (const iD of modalInputData) iD.setValue(iD.value);
+        for (const iD of modalInputData) {
+            iD.setValue(iD.value)
+        }
+        confirm(modalInputData[0].value, modalInputData[1].value);
     };
 
     return (
@@ -47,7 +50,6 @@ export const InputMap: React.FC<InputMapType> = (
                     <input
                         key={iD.id}
                         value={iD.value}
-                        style={{...inputStyles}}
                         onChange={e => setInputData(iD.id, e.currentTarget.value)}
                     />
                 ))
