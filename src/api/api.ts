@@ -55,7 +55,7 @@ export const authAPI = {
     },
     recoverPassword: async (email: string) => {
         const response = await axiosInst
-            .post<PasswordRecoveryRequestType, AxiosResponse<PasswordRecoveryResponseType>>('auth/forgot', {
+            .post<PasswordRecoveryRequestType, AxiosResponse<PasswordRecoveryResponseType>>('auth/forgot', { // только через хероку
                 email,
                 from: 'test-front-admin <borisenk-anton@yandex.ru>',
                 message: `<div style="background-color: lime; padding: 15px">
