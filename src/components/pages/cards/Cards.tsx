@@ -67,7 +67,7 @@ export const Cards = () => {
         setEditMode(false);
     }
 
-    const confirm = (question: string, answer: string) => {
+    const confirm = (question?: string, answer?: string) => {
         id
             ? dispatch(updateCard({
                 card: {
@@ -171,19 +171,9 @@ export const Cards = () => {
                         </tr>
                         {
                             cards.map(card => {
-                                // const onDeleteClick = () => {
-                                //     dispatch(deleteCard(card._id, card.cardsPack_id));
-                                // }
-                                // const onEditClick = () => {
-                                //     dispatch(updateCard({
-                                //         card: {
-                                //             ...cards,
-                                //             cardsPack_id: card.cardsPack_id,
-                                //             _id: card._id,
-                                //             question: 'How are you?'
-                                //         }
-                                //     }));
-                                // }
+                                const onDeleteClick = () => {
+                                    dispatch(deleteCard(card._id, card.cardsPack_id));
+                                }
                                 return <Card
                                     user_id={card.user_id}
                                     cardsPack_id={card.cardsPack_id}
