@@ -163,6 +163,7 @@ export type CardType = {
     updated: string
     __v: number
     _id: string
+    more_id?: string
 }
 
 export type GetCardsRequestType = {

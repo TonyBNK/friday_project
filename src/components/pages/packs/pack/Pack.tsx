@@ -12,6 +12,7 @@ type PackPropsType = {
     created: string
     onDeleteClick: () => void
     onEditClick: () => void
+    onLearnClick: () => void
 }
 export const Pack: React.FC<PackPropsType> = (
     {
@@ -23,7 +24,8 @@ export const Pack: React.FC<PackPropsType> = (
         updated,
         created,
         onDeleteClick,
-        onEditClick
+        onEditClick,
+        onLearnClick
     }
 ) => {
     return (
@@ -48,11 +50,13 @@ export const Pack: React.FC<PackPropsType> = (
                                 onClick={onEditClick}>
                                 Edit
                             </button>
-                            <button>
+                            <button
+                                onClick={onLearnClick}>
                                 Learn
                             </button>
                         </>
-                        : <button>
+                        : <button
+                            onClick={onLearnClick}>
                             Learn
                         </button>
                 }

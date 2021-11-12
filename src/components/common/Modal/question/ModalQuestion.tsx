@@ -53,11 +53,11 @@ export const ModalQuestion: React.FC<ModalQuestionType> = (
         >
             {children ? children : 'question Modal'}
             <div className={c.modalQuestionContainer}>
-                <button onClick={setTrue}>
-                    {buttonTrue}
-                </button>
                 <button onClick={setFalse}>
                     {buttonFalse}
+                </button>
+                <button onClick={setTrue}>
+                    {buttonTrue}
                 </button>
             </div>
         </Modal>

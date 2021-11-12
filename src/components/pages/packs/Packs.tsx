@@ -203,6 +203,7 @@ export const Packs = () => {
                                         setPackName(pack.name);
                                         setEditMode(true);
                                     }}
+                                    onLearnClick={() => alert(`Learn ${pack.name}`)}
                                 />
                             )
                         }
