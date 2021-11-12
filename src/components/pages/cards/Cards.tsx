@@ -18,6 +18,7 @@ import {Paginator} from "../../common/Paginator/Paginator";
 import {setRequestParams} from "../../../bll/reducers/cardsReducer";
 import {Card} from "./card/Card";
 import {ModalInput} from "../../common/Modal/input/ModalInput";
+import {ModalQuestion} from "../../common/Modal/question/ModalQuestion";
 
 
 export const Cards = () => {
@@ -55,6 +56,7 @@ export const Cards = () => {
 
     const [searchQuestion, setSearchQuestion] = useState<string>('');
     const [editMode, setEditMode] = useState<boolean>(false);
+    const [deleteMode, setDeleteMode] = useState<boolean>(false);
 
     const [id, setId] = useState<string>('');
     const [question, setQuestion] = useState<string>('');
@@ -65,6 +67,7 @@ export const Cards = () => {
         setQuestion('');
         setAnswer('');
         setEditMode(false);
+        setDeleteMode(false);
     }
 
     const confirm = (question?: string, answer?: string) => {
@@ -139,6 +142,20 @@ export const Cards = () => {
             >
                 {id ? 'Edit Card' : 'Add New Card'}
             </ModalInput>
+            <ModalQuestion
+                show={deleteMode}
+                setTrue={() => {
+                    dispatch(deleteCard(id, packId));
+                    close();
+                }}
+                setFalse={close}
+                width={300}
+                height={200}
+                enableBackground={true}
+                backgroundOnClick={close}
+            >
+                Are you sure about this?
+            </ModalQuestion>
             <div className={c.titleContainer}>
                 <h2>{packName}</h2>
                 <input
@@ -171,9 +188,9 @@ export const Cards = () => {
                         </tr>
                         {
                             cards.map(card => {
-                                const onDeleteClick = () => {
-                                    dispatch(deleteCard(card._id, card.cardsPack_id));
-                                }
+                                // const onDeleteClick = () => {
+                                //     dispatch(deleteCard(card._id, card.cardsPack_id));
+                                // }
                                 return <Card
                                     user_id={card.user_id}
                                     cardsPack_id={card.cardsPack_id}
@@ -184,6 +201,8 @@ export const Cards = () => {
                                     updated={new Date(card.updated).toLocaleDateString()}
                                     grade={card.grade}
                                     onDeleteClick={() => {
+                                        setId(card._id);
+                                        setDeleteMode(true);
                                     }}
                                     onEditClick={() => {
                                         setId(card._id);
