@@ -2,6 +2,7 @@ import React, {ReactNode, useState} from 'react';
 import {InputData, InputMap} from "./InputMap";
 import {Modal} from "../Modal";
 import c from "./ModalInput.module.scss";
+import {PostCardRequestType, PutCardRequestType} from "../../../../types/types";
 
 
 type ModalInputType = {

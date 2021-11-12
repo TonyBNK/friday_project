@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {
     GetCardsRequestType,
-    GetCardsResponseType, PostCardRequestType,
+    GetCardsResponseType, PostCardRequestType, PutCardRequestType,
     RootStateType
 } from "../../../types/types";
 import {
@@ -17,7 +17,6 @@ import {Spin} from "antd";
 import {Paginator} from "../../common/Paginator/Paginator";
 import {setRequestParams} from "../../../bll/reducers/cardsReducer";
 import {Card} from "./card/Card";
-import {ModalInputContainer} from "../../common/Modal/input/ModalInputContainer";
 import {ModalInput} from "../../common/Modal/input/ModalInput";
 
 
@@ -57,16 +56,39 @@ export const Cards = () => {
     const [searchQuestion, setSearchQuestion] = useState<string>('');
     const [editMode, setEditMode] = useState<boolean>(false);
 
+    const [id, setId] = useState<string>('');
     const [question, setQuestion] = useState<string>('');
     const [answer, setAnswer] = useState<string>('');
 
-    const confirm = (question: string, answer: string) => {
-        dispatch(addNewCard({card: {cardsPack_id: packId, question, answer}}));
+    const close = () => {
+        setId('');
+        setQuestion('');
+        setAnswer('');
+        setEditMode(false);
     }
 
+    const confirm = (question: string, answer: string) => {
+        id
+            ? dispatch(updateCard({
+                card: {
+                    cardsPack_id: packId,
+                    _id: id,
+                    question,
+                    answer
+                }
+            }))
+            : dispatch(addNewCard({
+                card: {
+                    cardsPack_id: packId,
+                    question,
+                    answer
+                }
+            }));
+    }
     const onAddNewCardClick = () => {
         setEditMode(true);
     }
+
     const onChangeInputSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchQuestion(e.currentTarget.value);
     }
@@ -106,16 +128,16 @@ export const Cards = () => {
         <div className={c.cardsContainer}>
             <ModalInput
                 show={editMode}
-                close={() => setEditMode(false)}
+                close={close}
                 inputData={[[question, setQuestion], [answer, setAnswer]]}
                 enableBackground={true}
-                backgroundOnClick={() => setEditMode(false)}
+                backgroundOnClick={close}
                 height={200}
                 width={300}
-                button={'Add'}
+                button={id ? 'Edit' : 'Add'}
                 confirm={confirm}
             >
-                Add new Card
+                {id ? 'Edit Card' : 'Add New Card'}
             </ModalInput>
             <div className={c.titleContainer}>
                 <h2>{packName}</h2>
@@ -149,31 +171,36 @@ export const Cards = () => {
                         </tr>
                         {
                             cards.map(card => {
-                                const onDeleteClick = () => {
-                                    dispatch(deleteCard(card._id, card.cardsPack_id));
-                                }
-                                const onEditClick = () => {
-                                    // dispatch(updateCard({
-                                    //     card: {
-                                    //         ...cards,
-                                    //         cardsPack_id: card.cardsPack_id,
-                                    //         _id: card._id,
-                                    //         question: 'How are you?'
-                                    //     }
-                                    // }));
-
-                                    alert('Edited');
-                                }
+                                // const onDeleteClick = () => {
+                                //     dispatch(deleteCard(card._id, card.cardsPack_id));
+                                // }
+                                // const onEditClick = () => {
+                                //     dispatch(updateCard({
+                                //         card: {
+                                //             ...cards,
+                                //             cardsPack_id: card.cardsPack_id,
+                                //             _id: card._id,
+                                //             question: 'How are you?'
+                                //         }
+                                //     }));
+                                // }
                                 return <Card
                                     user_id={card.user_id}
+                                    cardsPack_id={card.cardsPack_id}
                                     myId={myId}
                                     _id={card._id}
                                     question={card.question}
                                     answer={card.answer}
                                     updated={new Date(card.updated).toLocaleDateString()}
                                     grade={card.grade}
-                                    onDeleteClick={onDeleteClick}
-                                    onEditClick={onEditClick}
+                                    onDeleteClick={() => {
+                                    }}
+                                    onEditClick={() => {
+                                        setId(card._id);
+                                        setQuestion(card.question);
+                                        setAnswer(card.answer);
+                                        setEditMode(true);
+                                    }}
                                 />
                             })
                         }

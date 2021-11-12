@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
+import {PostCardRequestType} from "../../../../types/types";
 
 export type InputData = [string, (value: string) => void];
 
@@ -40,7 +41,8 @@ export const InputMap: React.FC<InputMapType> = (
         for (const iD of modalInputData) {
             iD.setValue(iD.value)
         }
-        confirm(modalInputData[0].value, modalInputData[1].value);
+        debugger
+        // confirm(modalInputData[0].value, modalInputData[1].value);
     };
 
     return (
