@@ -7,7 +7,6 @@ import {
     RootStateType
 } from "../../../types/types";
 import {
-    addNewCard,
     addNewPack,
     deletePack,
     getPacks,
@@ -18,6 +17,7 @@ import {Spin} from "antd";
 import {Paginator} from "../../common/Paginator/Paginator";
 import {Pack} from "./pack/Pack";
 import {ModalInput} from "../../common/Modal/input/ModalInput";
+import {ModalQuestion} from "../../common/Modal/question/ModalQuestion";
 
 
 export const Packs = () => {
@@ -63,23 +63,18 @@ export const Packs = () => {
     }
 
     const confirm = (packName: string) => {
-        dispatch(addNewPack({cardsPack: {name: packName}}));
-        // packId
-        //     ? dispatch(updateCard({
-        //         card: {
-        //             cardsPack_id: packId,
-        //             _id: cardId,
-        //             question,
-        //             answer
-        //         }
-        //     }))
-        //     : dispatch(addNewCard({
-        //         card: {
-        //             cardsPack_id: packId,
-        //             question,
-        //             answer
-        //         }
-        //     }));
+        packId
+            ? dispatch(updatePack({
+                cardsPack: {
+                    _id: packId,
+                    name: packName
+                }
+            }))
+            : dispatch(addNewPack({
+                cardsPack: {
+                    name: packName
+                }
+            }));
     }
 
     const onMyClick = () => {
@@ -143,6 +138,20 @@ export const Packs = () => {
             >
                 {packId ? 'Edit Pack' : 'Add New Pack'}
             </ModalInput>
+            <ModalQuestion
+                show={deleteMode}
+                setTrue={() => {
+                    dispatch(deletePack(packId));
+                    close();
+                }}
+                setFalse={close}
+                width={300}
+                height={200}
+                enableBackground={true}
+                backgroundOnClick={close}
+            >
+                Are you sure about this?
+            </ModalQuestion>
             <div className={c.titleContainer}>
                 <h2>Packs list</h2>
                 <input
@@ -177,33 +186,25 @@ export const Packs = () => {
                             <th>Actions</th>
                         </tr>
                         {
-                            cardPacks.map(pack => {
-                                const onDeleteClick = () => {
-                                    dispatch(deletePack(pack._id));
-                                }
-                                const onEditClick = () => {
-                                    dispatch(updatePack({
-                                        cardsPack: {
-                                            ...cardPacks,
-                                            _id: pack._id,
-                                            name: 'no named pack'
-                                        }
-                                    }));
-                                }
-
-                                return <Pack
+                            cardPacks.map(pack => <Pack
                                     _id={pack._id}
                                     user_id={pack.user_id}
+                                    myId={myId}
                                     name={pack.name}
                                     cardsCount={pack.cardsCount}
                                     updated={new Date(pack.updated).toLocaleDateString()}
                                     created={new Date(pack.created).toLocaleDateString()}
                                     onDeleteClick={() => {
+                                        setPackId(pack._id);
+                                        setDeleteMode(true);
                                     }}
                                     onEditClick={() => {
+                                        setPackId(pack._id);
+                                        setPackName(pack.name);
+                                        setEditMode(true);
                                     }}
                                 />
-                            })
+                            )
                         }
                         </tbody>
                     </table>
