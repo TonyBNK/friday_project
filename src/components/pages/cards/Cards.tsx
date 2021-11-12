@@ -37,7 +37,8 @@ export const Cards = () => {
         cards,
         cardsTotalCount,
         pageCount,
-        page
+        page,
+        packUserId
     } = useSelector<RootStateType, GetCardsResponseType>(
         state => state.cards.response
     );
@@ -58,12 +59,12 @@ export const Cards = () => {
     const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
 
-    const [id, setId] = useState<string>('');
+    const [cardId, setCardId] = useState<string>('');
     const [question, setQuestion] = useState<string>('');
     const [answer, setAnswer] = useState<string>('');
 
     const close = () => {
-        setId('');
+        setCardId('');
         setQuestion('');
         setAnswer('');
         setEditMode(false);
@@ -71,11 +72,11 @@ export const Cards = () => {
     }
 
     const confirm = (question?: string, answer?: string) => {
-        id
+        cardId
             ? dispatch(updateCard({
                 card: {
                     cardsPack_id: packId,
-                    _id: id,
+                    _id: cardId,
                     question,
                     answer
                 }
@@ -137,15 +138,15 @@ export const Cards = () => {
                 backgroundOnClick={close}
                 height={200}
                 width={300}
-                button={id ? 'Edit' : 'Add'}
+                button={cardId ? 'Edit' : 'Add'}
                 confirm={confirm}
             >
-                {id ? 'Edit Card' : 'Add New Card'}
+                {cardId ? 'Edit Card' : 'Add New Card'}
             </ModalInput>
             <ModalQuestion
                 show={deleteMode}
                 setTrue={() => {
-                    dispatch(deleteCard(id, packId));
+                    dispatch(deleteCard(cardId, packId));
                     close();
                 }}
                 setFalse={close}
@@ -184,14 +185,12 @@ export const Cards = () => {
                                     <button onClick={onSortUpByGrade}>▼</button>
                             }
                             </th>
-                            <th>Actions</th>
+                            {
+                                packUserId === myId && <th>Actions</th>
+                            }
                         </tr>
                         {
-                            cards.map(card => {
-                                // const onDeleteClick = () => {
-                                //     dispatch(deleteCard(card._id, card.cardsPack_id));
-                                // }
-                                return <Card
+                            cards.map(card => <Card
                                     user_id={card.user_id}
                                     cardsPack_id={card.cardsPack_id}
                                     myId={myId}
@@ -201,17 +200,17 @@ export const Cards = () => {
                                     updated={new Date(card.updated).toLocaleDateString()}
                                     grade={card.grade}
                                     onDeleteClick={() => {
-                                        setId(card._id);
+                                        setCardId(card._id);
                                         setDeleteMode(true);
                                     }}
                                     onEditClick={() => {
-                                        setId(card._id);
+                                        setCardId(card._id);
                                         setQuestion(card.question);
                                         setAnswer(card.answer);
                                         setEditMode(true);
                                     }}
                                 />
-                            })
+                            )
                         }
                         </tbody>
                     </table>
