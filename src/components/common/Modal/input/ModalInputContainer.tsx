@@ -31,7 +31,7 @@ export const ModalInputContainer: React.FC = () => {
                 width={300}
                 height={200}
 
-                confirm={() => {}}
+                confirm={{none:() => {}}}
             />
         </>
     );

@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
+import {ConfirmFunctionType} from "./ModalInput";
 
 
 export type InputData = [string, (value: string) => void];
@@ -6,7 +7,7 @@ export type InputData = [string, (value: string) => void];
 type InputMapType = {
     inputData?: InputData[];
     setSaveInputs: (fObject: { f: () => void }) => void
-    confirm: (question: string, answer: string) => void
+    confirm: ConfirmFunctionType
 }
 
 export const InputMap: React.FC<InputMapType> = (
@@ -41,7 +42,13 @@ export const InputMap: React.FC<InputMapType> = (
         for (const iD of modalInputData) {
             iD.setValue(iD.value)
         }
-        confirm(modalInputData[0].value, modalInputData[1].value);
+        if (modalInputData.length > 1) {
+            confirm.card
+            && confirm.card(modalInputData[0].value, modalInputData[1].value);
+        } else {
+            confirm.pack
+            && confirm.pack(modalInputData[0].value);
+        }
     };
 
     return (

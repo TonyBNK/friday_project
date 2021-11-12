@@ -7,16 +7,17 @@ import {
     RootStateType
 } from "../../../types/types";
 import {
+    addNewCard,
     addNewPack,
     deletePack,
     getPacks,
     updatePack
 } from "../../../bll/thunks/thunks";
 import {setRequestParams} from "../../../bll/reducers/packsReducer";
-import {NavLink} from "react-router-dom";
 import {Spin} from "antd";
 import {Paginator} from "../../common/Paginator/Paginator";
 import {Pack} from "./pack/Pack";
+import {ModalInput} from "../../common/Modal/input/ModalInput";
 
 
 export const Packs = () => {
@@ -47,7 +48,39 @@ export const Packs = () => {
         state => state.packs.request
     );
 
+    const [searchPack, setSearchPack] = useState<string>('');
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const [deleteMode, setDeleteMode] = useState<boolean>(false);
+
+    const [packId, setPackId] = useState<string>('');
     const [packName, setPackName] = useState<string>('');
+
+    const close = () => {
+        setPackId('');
+        setPackName('');
+        setEditMode(false);
+        setDeleteMode(false);
+    }
+
+    const confirm = (packName: string) => {
+        dispatch(addNewPack({cardsPack: {name: packName}}));
+        // packId
+        //     ? dispatch(updateCard({
+        //         card: {
+        //             cardsPack_id: packId,
+        //             _id: cardId,
+        //             question,
+        //             answer
+        //         }
+        //     }))
+        //     : dispatch(addNewCard({
+        //         card: {
+        //             cardsPack_id: packId,
+        //             question,
+        //             answer
+        //         }
+        //     }));
+    }
 
     const onMyClick = () => {
         dispatch(setRequestParams({...params, user_id: myId}));
@@ -58,13 +91,13 @@ export const Packs = () => {
         dispatch(getPacks());
     }
     const onAddNewPackClick = () => {
-        dispatch(addNewPack({cardsPack: {}}));
+        setEditMode(true);
     }
     const onChangeInputSearch = (e: ChangeEvent<HTMLInputElement>) => {
-        setPackName(e.currentTarget.value);
+        setSearchPack(e.currentTarget.value);
     }
     const onSearchClick = () => {
-        dispatch(setRequestParams({...params, packName: packName}));
+        dispatch(setRequestParams({...params, packName: searchPack}));
         dispatch(getPacks());
     }
     const onChangePageCount = (pageCount: number) => {
@@ -97,6 +130,19 @@ export const Packs = () => {
 
     return (
         <div className={c.packsContainer}>
+            <ModalInput
+                show={editMode}
+                close={close}
+                inputData={[[packName, setPackName]]}
+                enableBackground={true}
+                backgroundOnClick={close}
+                height={200}
+                width={300}
+                button={packId ? 'Edit' : 'Add'}
+                confirm={{pack: confirm}}
+            >
+                {packId ? 'Edit Pack' : 'Add New Pack'}
+            </ModalInput>
             <div className={c.titleContainer}>
                 <h2>Packs list</h2>
                 <input
@@ -152,11 +198,14 @@ export const Packs = () => {
                                     cardsCount={pack.cardsCount}
                                     updated={new Date(pack.updated).toLocaleDateString()}
                                     created={new Date(pack.created).toLocaleDateString()}
-                                    onDeleteClick={() => {}}
-                                    onEditClick={() => {}}
+                                    onDeleteClick={() => {
+                                    }}
+                                    onEditClick={() => {
+                                    }}
                                 />
                             })
-                        }</tbody>
+                        }
+                        </tbody>
                     </table>
                 </div>
             </div>

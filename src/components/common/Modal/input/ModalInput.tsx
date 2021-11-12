@@ -2,9 +2,13 @@ import React, {ReactNode, useState} from 'react';
 import {InputData, InputMap} from "./InputMap";
 import {Modal} from "../Modal";
 import c from "./ModalInput.module.scss";
-import {PostCardRequestType, PutCardRequestType} from "../../../../types/types";
 
 
+export type ConfirmFunctionType = {
+    card?: (question: string, answer: string) => void
+    pack?: (packName: string) => void
+    none?: () => void
+}
 type ModalInputType = {
     show: boolean;
     close: () => void;
@@ -21,23 +25,27 @@ type ModalInputType = {
     height: number;
     modalOnClick?: () => void;
 
-    confirm: (question: string, answer: string) => void
+    confirm: ConfirmFunctionType
+    // confirm: (question?: string, answer?: string) => void
 }
 
 export const ModalInput: React.FC<ModalInputType> = (
     {
         inputData,
         answer,
-        setAnswer = (answer: string) => {},
+        setAnswer = (answer: string) => {
+        },
 
         button = 'OK',
 
         enableBackground,
-        backgroundOnClick = () => {},
+        backgroundOnClick = () => {
+        },
 
         width,
         height,
-        modalOnClick = () => {},
+        modalOnClick = () => {
+        },
 
         show,
         close,
@@ -47,12 +55,18 @@ export const ModalInput: React.FC<ModalInputType> = (
     }
 ) => {
     const [answerData, setAnswerData] = useState(answer);
-    const [saveInputs, setSaveInputs] = useState({f: () => {}});
+    const [saveInputs, setSaveInputs] = useState({
+        f: () => {
+        }
+    });
 
     const successCloseModal = () => {
         saveInputs.f();
         setAnswer(answerData || '');
-        setSaveInputs({f: () => {}});
+        setSaveInputs({
+            f: () => {
+            }
+        });
         close();
     };
 

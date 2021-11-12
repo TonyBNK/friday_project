@@ -70,8 +70,7 @@ export const Cards = () => {
         setEditMode(false);
         setDeleteMode(false);
     }
-
-    const confirm = (question?: string, answer?: string) => {
+    const confirm = (question: string, answer: string) => {
         cardId
             ? dispatch(updateCard({
                 card: {
@@ -89,10 +88,10 @@ export const Cards = () => {
                 }
             }));
     }
+
     const onAddNewCardClick = () => {
         setEditMode(true);
     }
-
     const onChangeInputSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchQuestion(e.currentTarget.value);
     }
@@ -139,7 +138,7 @@ export const Cards = () => {
                 height={200}
                 width={300}
                 button={cardId ? 'Edit' : 'Add'}
-                confirm={confirm}
+                confirm={{card: confirm}}
             >
                 {cardId ? 'Edit Card' : 'Add New Card'}
             </ModalInput>
