@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {
     GetCardsRequestType,
-    GetCardsResponseType, PostCardRequestType, PutCardRequestType,
+    GetCardsResponseType,
     RootStateType
 } from "../../../types/types";
 import {

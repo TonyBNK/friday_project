@@ -16,6 +16,7 @@ import {setRequestParams} from "../../../bll/reducers/packsReducer";
 import {NavLink} from "react-router-dom";
 import {Spin} from "antd";
 import {Paginator} from "../../common/Paginator/Paginator";
+import {Pack} from "./pack/Pack";
 
 
 export const Packs = () => {
@@ -120,8 +121,10 @@ export const Packs = () => {
                             <th>
                                 Last Updated {
                                 sortPacks === '0updated'
-                                    ? <button onClick={onSortDownByDate}>▲</button>
-                                    : <button onClick={onSortUpByDate}>▼</button>
+                                    ? <button
+                                        onClick={onSortDownByDate}>▲</button>
+                                    :
+                                    <button onClick={onSortUpByDate}>▼</button>
                             }
                             </th>
                             <th>Created by</th>
@@ -142,37 +145,16 @@ export const Packs = () => {
                                     }));
                                 }
 
-                                return <tr key={pack._id}>
-                                    <td>
-                                        <NavLink to={'/cards/' + pack._id + '/' + pack.name}>
-                                            {pack.name}
-                                        </NavLink>
-                                    </td>
-                                    <td>{pack.cardsCount}</td>
-                                    <td>{new Date(pack.updated).toLocaleDateString()}</td>
-                                    <td>{new Date(pack.created).toLocaleDateString()}</td>
-                                    <td>
-                                        {
-                                            pack.user_id === myId
-                                                ? <>
-                                                    <button
-                                                        onClick={onDeleteClick}>
-                                                        Delete
-                                                    </button>
-                                                    <button
-                                                        onClick={onEditClick}>
-                                                        Edit
-                                                    </button>
-                                                    <button>
-                                                        Learn
-                                                    </button>
-                                                </>
-                                                : <button>
-                                                    Learn
-                                                </button>
-                                        }
-                                    </td>
-                                </tr>
+                                return <Pack
+                                    _id={pack._id}
+                                    user_id={pack.user_id}
+                                    name={pack.name}
+                                    cardsCount={pack.cardsCount}
+                                    updated={new Date(pack.updated).toLocaleDateString()}
+                                    created={new Date(pack.created).toLocaleDateString()}
+                                    onDeleteClick={() => {}}
+                                    onEditClick={() => {}}
+                                />
                             })
                         }</tbody>
                     </table>
