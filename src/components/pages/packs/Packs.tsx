@@ -14,15 +14,16 @@ import {
 } from "../../../bll/thunks/thunks";
 import {setRequestParams} from "../../../bll/reducers/packsReducer";
 import {Spin} from "antd";
-import {Paginator} from "../../common/Paginator/Paginator";
 import {Pack} from "./pack/Pack";
 import {ModalInput} from "../../common/Modal/input/ModalInput";
 import {ModalQuestion} from "../../common/Modal/question/ModalQuestion";
-import {LearnPage} from "../learn-page/LearnPage";
+import {Redirect, useHistory} from "react-router-dom";
+import {Paginator} from "../../common/Paginator/Paginator";
 
 
 export const Packs = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(getPacks());
@@ -53,7 +54,6 @@ export const Packs = () => {
 
     const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
-    const [learnMode, setLearnMode] = useState<boolean>(false);
 
     const [packId, setPackId] = useState<string>('');
     const [packName, setPackName] = useState<string>('');
@@ -155,19 +155,6 @@ export const Packs = () => {
             >
                 Are you sure about this?
             </ModalQuestion>
-            <ModalQuestion
-                show={learnMode}
-                setTrue={() => {}}
-                setFalse={close}
-                width={300}
-                height={200}
-                buttonTrue={'check'}
-                buttonFalse={'cancel'}
-                enableBackground={true}
-                backgroundOnClick={close}
-            >
-                Are you sure about this?
-            </ModalQuestion>
             <div className={c.titleContainer}>
                 <h2>Packs list</h2>
                 <input
@@ -220,9 +207,7 @@ export const Packs = () => {
                                         setPackName(pack.name);
                                         setEditMode(true);
                                     }}
-                                    onLearnClick={() => {
-                                        setLearnMode(true);
-                                    }}
+                                    onLearnClick={() => history.push('/learn/' + pack._id + '/' + pack.name)}
                                 />
                             )
                         }

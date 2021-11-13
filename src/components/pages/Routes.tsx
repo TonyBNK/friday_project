@@ -22,7 +22,8 @@ export const PATH = {
     ENTER_NEW_PASSWORD: '/enter_new_password',
     PACKS: '/packs',
     CARDS: '/cards/:packId/:packName',
-    MODALS: '/modals'
+    MODALS: '/modals',
+    LEARN: '/learn/:packId/:packName'
 }
 
 export const Routes = () => {
@@ -40,6 +41,7 @@ export const Routes = () => {
                 <Route path={PATH.PACKS} render={() => <Packs/>}/>
                 <Route path={PATH.CARDS} render={() => <Cards/>}/>
                 <Route path={PATH.MODALS} render={() => <ModalsPage/>}/>
+                <Route path={PATH.LEARN} render={() => <LearnPage/>}/>
 
                 <Route render={() => <Error404/>}/>
             </Switch>

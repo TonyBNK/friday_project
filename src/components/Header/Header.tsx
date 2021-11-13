@@ -2,7 +2,6 @@ import React from "react";
 import c from './Header.module.scss';
 import {PATH} from "../pages/Routes";
 import {NavLink} from "react-router-dom";
-import {Button} from "../common/Button/Button";
 import {useDispatch} from "react-redux";
 import {logOut} from "../../bll/thunks/thunks";
 
@@ -44,6 +43,8 @@ export const Header: React.FC<HeaderPropsType> = (
                      activeClassName={c.active}>Cards</NavLink>
             <NavLink to={PATH.MODALS}
                      activeClassName={c.active}>Modals</NavLink>
+            <NavLink to={PATH.LEARN}
+                     activeClassName={c.active}>Learn</NavLink>
             {
                 isLogged
                 && <NavLink to={PATH.LOGIN}
