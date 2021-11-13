@@ -10,6 +10,7 @@ import {Test} from "./test/Test";
 import {Packs} from "./packs/Packs";
 import {Cards} from "./cards/Cards";
 import {ModalsPage} from "./modals/ModalsPage";
+import {LearnPage} from "./learn-page/LearnPage";
 
 
 export const PATH = {

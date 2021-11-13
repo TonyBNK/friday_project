@@ -18,6 +18,7 @@ import {Paginator} from "../../common/Paginator/Paginator";
 import {Pack} from "./pack/Pack";
 import {ModalInput} from "../../common/Modal/input/ModalInput";
 import {ModalQuestion} from "../../common/Modal/question/ModalQuestion";
+import {LearnPage} from "../learn-page/LearnPage";
 
 
 export const Packs = () => {
@@ -49,8 +50,10 @@ export const Packs = () => {
     );
 
     const [searchPack, setSearchPack] = useState<string>('');
+
     const [editMode, setEditMode] = useState<boolean>(false);
     const [deleteMode, setDeleteMode] = useState<boolean>(false);
+    const [learnMode, setLearnMode] = useState<boolean>(false);
 
     const [packId, setPackId] = useState<string>('');
     const [packName, setPackName] = useState<string>('');
@@ -152,6 +155,19 @@ export const Packs = () => {
             >
                 Are you sure about this?
             </ModalQuestion>
+            <ModalQuestion
+                show={learnMode}
+                setTrue={() => {}}
+                setFalse={close}
+                width={300}
+                height={200}
+                buttonTrue={'check'}
+                buttonFalse={'cancel'}
+                enableBackground={true}
+                backgroundOnClick={close}
+            >
+                Are you sure about this?
+            </ModalQuestion>
             <div className={c.titleContainer}>
                 <h2>Packs list</h2>
                 <input
@@ -187,6 +203,7 @@ export const Packs = () => {
                         </tr>
                         {
                             cardPacks.map(pack => <Pack
+                                    key={pack._id}
                                     _id={pack._id}
                                     user_id={pack.user_id}
                                     myId={myId}
@@ -203,7 +220,9 @@ export const Packs = () => {
                                         setPackName(pack.name);
                                         setEditMode(true);
                                     }}
-                                    onLearnClick={() => alert(`Learn ${pack.name}`)}
+                                    onLearnClick={() => {
+                                        setLearnMode(true);
+                                    }}
                                 />
                             )
                         }

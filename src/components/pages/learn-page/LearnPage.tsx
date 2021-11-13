@@ -92,7 +92,9 @@ export const LearnPage = () => {
                         }}>{g}</button>
                     ))}
 
-                    <div><button onClick={onNext}>next</button></div>
+                    <div>
+                        <button onClick={onNext}>next</button>
+                    </div>
                 </>
             )}
         </div>
