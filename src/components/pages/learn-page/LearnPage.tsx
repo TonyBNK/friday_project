@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {CardType, RootStateType} from "../../../types/types";
-import {getCards} from "../../../bll/thunks/thunks";
+import {changeGrade, getCards} from "../../../bll/thunks/thunks";
+import c from "./LearnPage.module.scss";
 
 
 const grades = ['не знал', 'забыл', 'долго думал', 'перепутал', 'знал'];
@@ -46,6 +47,8 @@ export const LearnPage = () => {
         __v: 0
     });
 
+    const [grade, setGrade] = useState<number>(0);
+
     const dispatch = useDispatch();
     useEffect(() => {
         console.log('LearnContainer useEffect');
@@ -65,9 +68,9 @@ export const LearnPage = () => {
 
     const onNext = () => {
         setIsChecked(false);
+        dispatch(changeGrade({card_id: card._id, grade}));
 
         if (cards.length > 0) {
-            // dispatch
             setCard(getCard(cards));
         } else {
 
@@ -75,21 +78,21 @@ export const LearnPage = () => {
     }
 
     return (
-        <div>
-            LearnPage
+        <div className={c.learnPageContainer}>
+            <h3>{`Learn '${packName}'`}</h3>
 
-            <div>{card.question}</div>
+            <div><b>Question:</b> {card.question}</div>
             <div>
                 <button onClick={() => setIsChecked(true)}>check</button>
             </div>
 
             {isChecked && (
                 <>
-                    <div>{card.answer}</div>
+                    <div><b>Answer:</b> {card.answer}</div>
 
                     {grades.map((g, i) => (
-                        <button key={'grade-' + i} onClick={() => {
-                        }}>{g}</button>
+                        <button key={'grade-' + i}
+                                onClick={() => setGrade(i + 1)}>{g}</button>
                     ))}
 
                     <div>

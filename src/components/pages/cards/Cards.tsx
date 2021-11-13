@@ -190,6 +190,7 @@ export const Cards = () => {
                         </tr>
                         {
                             cards.map(card => <Card
+                                    key={card._id}
                                     user_id={card.user_id}
                                     cardsPack_id={card.cardsPack_id}
                                     myId={myId}

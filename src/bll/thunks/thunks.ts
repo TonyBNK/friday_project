@@ -1,10 +1,10 @@
 import {Dispatch} from "redux";
 import {setLogged} from "../reducers/loginReducer";
-import {authAPI, cardsAPI, packsAPI} from "../../api/api";
+import {authAPI, cardsAPI, learnAPI, packsAPI} from "../../api/api";
 import {
     CardType,
     LoginRequestType, PostCardRequestType,
-    PostPackRequestType, PutCardRequestType,
+    PostPackRequestType, PutCardRequestType, PutGradeRequestType,
     PutPackRequestType,
     RegisterRequestType
 } from "../../types/types";
@@ -219,6 +219,21 @@ export const updateCard = (card: PutCardRequestType) => async (dispatch: Dispatc
         dispatch(setLoading({isLoading: true}));
         await cardsAPI.updateCard(card);
         dispatch(getCards(card.card.cardsPack_id));
+    } catch (e: any) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', more details in the console');
+        console.log(error);
+        console.log('Error: ', {...e});
+    } finally {
+        dispatch(setLoading({isLoading: false}));
+    }
+}
+
+export const changeGrade = (grade: PutGradeRequestType) => async (dispatch: Dispatch<any>) => {
+    try {
+        dispatch(setLoading({isLoading: true}));
+        await learnAPI.changeGrade(grade);
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error

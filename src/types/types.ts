@@ -224,3 +224,9 @@ export type PutCardRequestType = {
         type?: string
     }
 }
+
+// Learn types
+export type PutGradeRequestType = {
+    grade: number
+    card_id: string
+}

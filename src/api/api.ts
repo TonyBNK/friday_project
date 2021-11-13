@@ -11,7 +11,7 @@ import {
     PostCardRequestType,
     PostPackRequestType,
     ProfileResponseType,
-    PutCardRequestType,
+    PutCardRequestType, PutGradeRequestType,
     PutPackRequestType,
     RegisterRequestType,
     RegisterResponseType
@@ -120,4 +120,11 @@ export const cardsAPI = {
         await axiosInst
             .put('cards/card', card);
     },
+}
+
+export const learnAPI = {
+    changeGrade: async (grade: PutGradeRequestType) => {
+        await axiosInst
+            .put('cards/grade', grade);
+    }
 }
