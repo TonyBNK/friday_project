@@ -45,6 +45,8 @@ export const Header: React.FC<HeaderPropsType> = (
                      activeClassName={c.active}>Modals</NavLink>
             <NavLink to={PATH.LEARN}
                      activeClassName={c.active}>Learn</NavLink>
+            <NavLink to={PATH.FILES}
+                     activeClassName={c.active}>Files</NavLink>
             {
                 isLogged
                 && <NavLink to={PATH.LOGIN}

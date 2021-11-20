@@ -11,6 +11,7 @@ import {Packs} from "./packs/Packs";
 import {Cards} from "./cards/Cards";
 import {ModalsPage} from "./modals/ModalsPage";
 import {LearnPage} from "./learn-page/LearnPage";
+import {FilesPage} from "./files/FilesPage";
 
 
 export const PATH = {
@@ -23,7 +24,8 @@ export const PATH = {
     PACKS: '/packs',
     CARDS: '/cards/:packId/:packName',
     MODALS: '/modals',
-    LEARN: '/learn/:packId/:packName'
+    LEARN: '/learn/:packId/:packName',
+    FILES: '/files'
 }
 
 export const Routes = () => {
@@ -42,6 +44,7 @@ export const Routes = () => {
                 <Route path={PATH.CARDS} render={() => <Cards/>}/>
                 <Route path={PATH.MODALS} render={() => <ModalsPage/>}/>
                 <Route path={PATH.LEARN} render={() => <LearnPage/>}/>
+                <Route path={PATH.FILES} render={() => <FilesPage/>}/>
 
                 <Route render={() => <Error404/>}/>
             </Switch>
