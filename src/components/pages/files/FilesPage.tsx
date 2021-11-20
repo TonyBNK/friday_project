@@ -1,10 +1,9 @@
 import React from "react";
+import {FileInputContainer} from "../../common/File/FileInputContainer";
 
 
-export const FilesPage = () => {
+export const FilesPage: React.FC = () => {
   return (
-    <div>
-        files
-    </div>
+      <FileInputContainer/>
   );
 }
