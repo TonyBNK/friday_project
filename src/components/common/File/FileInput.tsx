@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useRef, useState} from 'react';
+import React, {ChangeEvent, useCallback, useRef, useState} from 'react';
 import {getFile, writeFile} from "./getFile";
 import {Video} from "./Video";
 import {filesAPI} from "../../../api/api";
@@ -44,10 +44,10 @@ export const FileInput: React.FC<FileInputPropsType> = () => {
         }
     };
 
-    const send = () => {
+    const send = useCallback(() => {
         // const response = instance.post('/file', fileData);
         filesAPI.send(fileData);
-    };
+    }, [fileData]);
 
     const returnFileSize = (n: number) => {
         if (n < 1024) {
