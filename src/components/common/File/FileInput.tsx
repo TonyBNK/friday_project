@@ -9,7 +9,7 @@ type FileInputPropsType = {
 
 }
 
-export const FileInput: React.FC<FileInputPropsType> = () => {
+export const FileInput: React.FC<FileInputPropsType> = React.memo(() => {
     const inRef = useRef<HTMLInputElement>(null);
 
     const [code, setCode] = useState(false);
@@ -103,4 +103,4 @@ export const FileInput: React.FC<FileInputPropsType> = () => {
             <Video fileURL={fileURL}/>
         </div>
     );
-};
+});
